@@ -7,6 +7,7 @@ import "./AllRestaurants.scss";
 import { endpointURL } from "../../util/EndpointURL";
 import LoadingView from "../../components/views/LoadingView.js";
 import EmptyList from "../../components/views/EmptyList.js";
+import CreateRestaurantForm from "../../components/forms/createRestaurant/CreateRestaurantForm.js";
 
 function AllRestaurants() {
   const [allRestaurants, setAllRestaurants] = useState([]);
@@ -51,6 +52,7 @@ function AllRestaurants() {
   return (
     <div>
       <SearchBar searchHandler={searchHandler} />
+      <CreateRestaurantForm />
 
       {isLoading && <LoadingView />}
 
