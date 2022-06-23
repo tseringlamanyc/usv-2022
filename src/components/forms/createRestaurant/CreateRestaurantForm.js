@@ -28,8 +28,8 @@ const dinningOptions = ["Takeout Only", "Delivery Only"];
 function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, method = "POST" }) {
   const [formValues, setFormValues] = useState(defaultValues);
   const [notify, setNotify] = useState("");
-  const [timeOpen, setTimeOpen] = useState(null);
-  const [timeClose, setTimeClose] = useState(null);
+  const [timeOpen, setTimeOpen] = useState(new Date());
+  const [timeClose, setTimeClose] = useState(new Date());
 
   const [open, setOpen] = useState(false);
 
@@ -50,6 +50,27 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
     setFormValues({
       ...formValues,
       [name]: value,
+    });
+  };
+
+  const handleOpenTimeChange = (e) => {
+    if (e === timeOpen) {
+      console.log("same open time");
+    }
+    let timeStr = formatTime(e);
+    setTimeOpen(e);
+    setFormValues({
+      ...formValues,
+      ["openingTime"]: timeStr,
+    });
+  };
+
+  const handleCloseTimeChange = (e) => {
+    let timeStr = formatTime(e);
+    setTimeClose(e);
+    setFormValues({
+      ...formValues,
+      ["closingTime"]: timeStr,
     });
   };
 
@@ -85,12 +106,11 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
           // clear out form
           setFormValues(defaultValues);
 
-          console.log("New restaurant created");
           setNotify(`${name} was successfully created`);
           handleToggle();
 
           // update restaurants
-          // getAllRestaurants();
+          getAllRestaurants();
         } else {
           setRestaurant(data);
         }
@@ -162,32 +182,18 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
 
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <TimePicker
+            required
             label="Opening Time"
             value={timeOpen}
-            onChange={(newValue) => {
-              let timeStr = formatTime(newValue);
-              setTimeOpen(newValue);
-
-              setFormValues({
-                ...formValues,
-                ["openingTime"]: timeStr,
-              });
-            }}
+            onChange={handleOpenTimeChange}
             renderInput={(params) => <TextField {...params} />}
           />
 
           <TimePicker
+            required
             label="Closing Time"
             value={timeClose}
-            onChange={(newValue) => {
-              let timeStr = formatTime(newValue);
-              setTimeClose(newValue);
-
-              setFormValues({
-                ...formValues,
-                ["closingTime"]: timeStr,
-              });
-            }}
+            onChange={handleCloseTimeChange}
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>

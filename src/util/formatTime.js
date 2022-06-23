@@ -12,7 +12,7 @@ const formatTime = (e) => {
     formattedMin = `0${formattedMin}`;
   }
 
-  formattedTime = `${formattedHour}:${formattedMin}:0${formattedSec}`;
+  formattedTime = `${formattedHour}:${formattedMin}:${formattedSec}`;
 
   return formattedTime;
 };

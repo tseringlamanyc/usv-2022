@@ -28,31 +28,31 @@ function AllRestaurants() {
     }
   });
 
-  useEffect(() => {
-    const fetchResturants = async () => {
-      try {
-        let url = `${endpointURL}api/restaurants`;
-        const res = await fetch(url);
+  const fetchRestaurants = async () => {
+    try {
+      let url = `${endpointURL}api/restaurants`;
+      const res = await fetch(url);
 
-        if (!res.ok) {
-          throw Error(`Could not fetch data for that ${url}`);
-        }
-
-        const json = await res.json();
-        setAllRestaurants(json.restaurants);
-        setIsLoading(false);
-      } catch (err) {
-        SetError(err.message);
+      if (!res.ok) {
+        throw Error(`Could not fetch data for that ${url}`);
       }
-    };
 
-    fetchResturants();
+      const json = await res.json();
+      setAllRestaurants(json.restaurants);
+      setIsLoading(false);
+    } catch (err) {
+      SetError(err.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchRestaurants();
   }, []);
 
   return (
     <div>
       <SearchBar searchHandler={searchHandler} />
-      <CreateRestaurantForm />
+      <CreateRestaurantForm getAllRestaurants={fetchRestaurants} />
 
       {isLoading && <LoadingView />}
 
