@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { Button, Alert, Backdrop, TextField } from "@mui/material";
+
+import { Button, Alert, Backdrop, TextField, Input } from "@mui/material";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import MenuItem from "@mui/material/MenuItem";
 
 import "./CreateRestaurantForm.scss";
@@ -79,6 +83,7 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
 
           console.log("New restaurant created");
           setNotify(`${name} was successfully created`);
+          handleToggle();
 
           // update restaurants
           // getAllRestaurants();
@@ -89,8 +94,6 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
       .catch((err) => {
         console.log({ err });
       });
-
-    handleToggle();
 
     console.log(formValues);
   };
@@ -107,7 +110,6 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
           value={formValues.name}
           onChange={handleInputChange}
         />
-
         <TextField
           required
           id="outlined-multiline-flexible"
@@ -118,7 +120,6 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
           value={formValues.description}
           onChange={handleInputChange}
         />
-
         <TextField
           required
           select
@@ -133,7 +134,6 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
             </MenuItem>
           ))}
         </TextField>
-
         <TextField
           required
           id="outlined-required"
@@ -143,7 +143,6 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
           value={formValues.cuisine}
           onChange={handleInputChange}
         />
-
         <TextField
           required
           id="outlined-required"
@@ -153,7 +152,6 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
           value={formValues.location}
           onChange={handleInputChange}
         />
-
         <input
           required
           id="outlined-required"
@@ -174,7 +172,6 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
         />
 
         {/* OPTIONALS */}
-
         <TextField
           type="tel"
           pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
@@ -183,7 +180,6 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
           value={formValues.phoneNumber}
           onChange={handleInputChange}
         />
-
         <TextField
           select
           label="Service"
@@ -197,11 +193,9 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
             </MenuItem>
           ))}
         </TextField>
-
         <Button variant="contained" type="submit" onClick={createNewRestaurant}>
           Create
         </Button>
-
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={open}
