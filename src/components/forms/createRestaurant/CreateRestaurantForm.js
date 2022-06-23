@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import { Button, Input, TextField } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 
 import "./CreateRestaurantForm.scss";
@@ -16,64 +16,178 @@ const defaultValues = {
   diningRestriction: "",
 };
 
-const priceRanges = ["$", "$$", "$$$"];
-const dinningOptions = ["Takeout-Only", "Delivery-Only"];
+const priceRanges = ["$", "$$", "$$$", "$$$$"];
+const dinningOptions = [null, "Takeout Only", "Delivery Only"];
 
-function CreateRestaurantForm() {
+function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, method = "POST" }) {
   const [formValues, setFormValues] = useState(defaultValues);
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   const handleInputChange = (e) => {
-    const { key, value } = e.target;
+    const { name, value } = e.target;
     setFormValues({
       ...formValues,
-      [key]: value,
+      [name]: value,
     });
   };
 
-  const handleSubmitForm = (e) => {
-    e.preventDefault();
+  const createNewRestaurant = () => {
+    let { name, description, price, cuisine, location, openingTime, closingTime } = formValues;
+
+    let jsonObject = {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        description,
+        price,
+        cuisine,
+        location,
+        openingTime,
+        closingTime,
+      }),
+    };
+
+    let postURL = "https://tsering-takehome-api.herokuapp.com/api/restaurants";
+
+    if (method === "PATCH") {
+      postURL += `${restaurant.id}`;
+    }
+
+    fetch(postURL, jsonObject)
+      .then((res) => res.json())
+      .then((data) => {
+        if (method === "POST") {
+          // clear out form
+          setFormValues(defaultValues);
+
+          console.log("New restaurant created");
+
+          // update restaurants
+          getAllRestaurants();
+        } else {
+          setRestaurant(data);
+        }
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
+
+    console.log(formValues);
   };
 
   return (
-    <div className="restaurantForm">
-      <TextField required id="outlined-required" label="Required" placeholder="Restaurant name" />
-      <TextField required id="outlined-multiline-flexible" label="Required" multiline maxRows={5} />
+    <div>
+      <form onSubmit={handleSubmit} className="restaurantForm">
+        <TextField
+          required
+          id="outlined-required"
+          name="name"
+          label="Required"
+          placeholder="Restaurant name"
+          value={formValues.name}
+          onChange={handleInputChange}
+        />
 
-      <TextField required select label="Price" helperText="Price range">
-        {priceRanges.map((price, index) => (
-          <MenuItem key={index} value={price}>
-            {price}
-          </MenuItem>
-        ))}
-      </TextField>
+        <TextField
+          required
+          id="outlined-multiline-flexible"
+          name="description"
+          label="Required"
+          multiline
+          maxRows={5}
+          value={formValues.description}
+          onChange={handleInputChange}
+        />
 
-      <TextField
-        required
-        id="outlined-required"
-        label="Required"
-        placeholder="Restaurant cuisine"
-      />
+        <TextField
+          required
+          select
+          label="Price"
+          helperText="Price range"
+          name="price"
+          value={formValues.price}
+          onChange={handleInputChange}>
+          {priceRanges.map((price, index) => (
+            <MenuItem key={index} value={price}>
+              {price}
+            </MenuItem>
+          ))}
+        </TextField>
 
-      <TextField
-        required
-        id="outlined-required"
-        label="Required"
-        placeholder="Restaurant location"
-      />
+        <TextField
+          required
+          id="outlined-required"
+          label="Required"
+          name="cuisine"
+          placeholder="Restaurant cuisine"
+          value={formValues.cuisine}
+          onChange={handleInputChange}
+        />
 
-      <TextField required id="outlined-required" type="time" />
-      <TextField required type="time" />
-      <TextField type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Phone number" />
+        <TextField
+          required
+          id="outlined-required"
+          label="Required"
+          name="location"
+          placeholder="Restaurant location"
+          value={formValues.location}
+          onChange={handleInputChange}
+        />
 
-      <TextField select label="Service" helperText="Dining Type">
-        {dinningOptions.map((opt, index) => (
-          <MenuItem key={index} value={opt}>
-            {opt}
-          </MenuItem>
-        ))}
-      </TextField>
+        <input
+          required
+          id="outlined-required"
+          name="openingTime"
+          type="time"
+          step="2"
+          value={formValues.openingTime}
+          onChange={handleInputChange}
+        />
 
-      <Button variant="contained">Submit</Button>
+        <input
+          required
+          type="time"
+          name="closingTime"
+          step="2"
+          value={formValues.closingTime}
+          onChange={handleInputChange}
+        />
+
+        {/* OPTIONALS */}
+
+        <TextField
+          type="tel"
+          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          name="phoneNumber"
+          placeholder="Phone number"
+          value={formValues.phoneNumber}
+          onChange={handleInputChange}
+        />
+
+        <TextField
+          select
+          label="Service"
+          name="diningRestriction"
+          helperText="Dining Type"
+          value={formValues.diningRestriction}
+          onChange={handleInputChange}>
+          {dinningOptions.map((opt, index) => (
+            <MenuItem key={index} value={opt}>
+              {opt}
+            </MenuItem>
+          ))}
+        </TextField>
+
+        <Button variant="contained" type="submit" onClick={createNewRestaurant}>
+          Create
+        </Button>
+      </form>
     </div>
   );
 }

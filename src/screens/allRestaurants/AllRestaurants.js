@@ -2,12 +2,12 @@ import React from "react";
 import { useEffect, useState } from "react";
 import RestaurantList from "../../components/restaurantList/RestaurantList.js";
 import SearchBar from "../../components/searchBar/SearchBar.js";
-
-import "./AllRestaurants.scss";
-import { endpointURL } from "../../util/EndpointURL";
 import LoadingView from "../../components/views/LoadingView.js";
 import EmptyList from "../../components/views/EmptyList.js";
 import CreateRestaurantForm from "../../components/forms/createRestaurant/CreateRestaurantForm.js";
+import { endpointURL } from "../../util/EndpointURL";
+
+import "./AllRestaurants.scss";
 
 function AllRestaurants() {
   const [allRestaurants, setAllRestaurants] = useState([]);

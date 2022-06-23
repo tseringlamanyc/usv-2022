@@ -7,7 +7,10 @@ function RestaurantCard({ restaurant }) {
   return (
     <div className="restaurantCard">
       <div className="restaurantCard_photo">
-        <img src={imageURL} alt="restaurant_image" />
+        <img
+          src="http://placehold.jp/4c5090/ffffff/300x200.png?text=Restaurant%20Image"
+          alt="restaurant_image"
+        />
       </div>
       <div className="restaurantCard_info">
         <div>{restaurant.name}</div>
