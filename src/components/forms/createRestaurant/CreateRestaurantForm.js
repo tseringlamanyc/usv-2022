@@ -6,6 +6,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import MenuItem from "@mui/material/MenuItem";
 
+import { formatTime } from "../../../util/formatTime";
+
 import "./CreateRestaurantForm.scss";
 
 const defaultValues = {
@@ -21,11 +23,13 @@ const defaultValues = {
 };
 
 const priceRanges = ["$", "$$", "$$$", "$$$$"];
-const dinningOptions = [null, "Takeout Only", "Delivery Only"];
+const dinningOptions = ["Takeout Only", "Delivery Only"];
 
 function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, method = "POST" }) {
   const [formValues, setFormValues] = useState(defaultValues);
   const [notify, setNotify] = useState("");
+  const [timeOpen, setTimeOpen] = useState(null);
+  const [timeClose, setTimeClose] = useState(null);
 
   const [open, setOpen] = useState(false);
 
@@ -110,6 +114,7 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
           value={formValues.name}
           onChange={handleInputChange}
         />
+
         <TextField
           required
           id="outlined-multiline-flexible"
@@ -120,6 +125,7 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
           value={formValues.description}
           onChange={handleInputChange}
         />
+
         <TextField
           required
           select
@@ -134,6 +140,7 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
             </MenuItem>
           ))}
         </TextField>
+
         <TextField
           required
           id="outlined-required"
@@ -152,24 +159,38 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
           value={formValues.location}
           onChange={handleInputChange}
         />
-        <input
-          required
-          id="outlined-required"
-          name="openingTime"
-          type="time"
-          step="2"
-          value={formValues.openingTime}
-          onChange={handleInputChange}
-        />
 
-        <input
-          required
-          type="time"
-          name="closingTime"
-          step="2"
-          value={formValues.closingTime}
-          onChange={handleInputChange}
-        />
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <TimePicker
+            label="Opening Time"
+            value={timeOpen}
+            onChange={(newValue) => {
+              let timeStr = formatTime(newValue);
+              setTimeOpen(newValue);
+
+              setFormValues({
+                ...formValues,
+                ["openingTime"]: timeStr,
+              });
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+
+          <TimePicker
+            label="Closing Time"
+            value={timeClose}
+            onChange={(newValue) => {
+              let timeStr = formatTime(newValue);
+              setTimeClose(newValue);
+
+              setFormValues({
+                ...formValues,
+                ["closingTime"]: timeStr,
+              });
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
 
         {/* OPTIONALS */}
         <TextField
@@ -180,6 +201,7 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
           value={formValues.phoneNumber}
           onChange={handleInputChange}
         />
+
         <TextField
           select
           label="Service"
@@ -193,9 +215,11 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
             </MenuItem>
           ))}
         </TextField>
+
         <Button variant="contained" type="submit" onClick={createNewRestaurant}>
           Create
         </Button>
+
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={open}
