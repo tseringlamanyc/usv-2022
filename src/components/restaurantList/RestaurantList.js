@@ -1,6 +1,6 @@
 import React from "react";
-
 import RestaurantCard from "../restaurantCard/RestaurantCard.js";
+import Skeleton from "@mui/material/Skeleton";
 
 import "./RestaurantList.scss";
 

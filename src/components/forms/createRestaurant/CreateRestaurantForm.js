@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Input, TextField } from "@mui/material";
+import { Button, Alert, Backdrop, TextField } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 
 import "./CreateRestaurantForm.scss";
@@ -21,6 +21,17 @@ const dinningOptions = [null, "Takeout Only", "Delivery Only"];
 
 function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, method = "POST" }) {
   const [formValues, setFormValues] = useState(defaultValues);
+  const [notify, setNotify] = useState("");
+
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleToggle = () => {
+    setOpen(!open);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -67,9 +78,10 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
           setFormValues(defaultValues);
 
           console.log("New restaurant created");
+          setNotify(`${name} was successfully created`);
 
           // update restaurants
-          getAllRestaurants();
+          // getAllRestaurants();
         } else {
           setRestaurant(data);
         }
@@ -77,6 +89,8 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
       .catch((err) => {
         console.log({ err });
       });
+
+    handleToggle();
 
     console.log(formValues);
   };
@@ -187,6 +201,15 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
         <Button variant="contained" type="submit" onClick={createNewRestaurant}>
           Create
         </Button>
+
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+          onClick={handleClose}>
+          <Alert variant="filled" severity="success">
+            {notify}
+          </Alert>
+        </Backdrop>
       </form>
     </div>
   );
