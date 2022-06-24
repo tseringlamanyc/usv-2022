@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import CreateRestaurantForm from "../forms/createRestaurant/CreateRestaurantForm";
 
 const style = {
-  position: "relative",
+  position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",

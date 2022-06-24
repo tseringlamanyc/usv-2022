@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CreateRestaurantForm from "../../components/forms/createRestaurant/CreateRestaurantForm";
 
 function SingleRestaurant() {
   let params = useParams();
@@ -40,15 +41,21 @@ function SingleRestaurant() {
     };
 
     getARestaurant();
-  }, [getURL]);
+  }, []);
 
   return (
     <div>
-      {Object.keys(restaurantData).length > 0 && (
+      {Object.keys(restaurantData).length && (
         <>
+          <CreateRestaurantForm
+            restaurant={restaurantData}
+            setRestaurant={setRestaurantData}
+            method="PATCH"
+          />
           <div>{restaurantData.name}</div>
         </>
       )}
+
       <Button
         variant="outlined"
         color="error"

@@ -9,6 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { formatTime } from "../../../util/formatTime";
 
 import "./CreateRestaurantForm.scss";
+import { getDateFromHours } from "../../../util/string_to_time";
 
 const defaultValues = {
   name: "",
@@ -26,12 +27,22 @@ const priceRanges = ["$", "$$", "$$$", "$$$$"];
 const dinningOptions = ["Takeout Only", "Delivery Only"];
 
 function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, method = "POST" }) {
-  const [formValues, setFormValues] = useState(defaultValues);
+  const [formValues, setFormValues] = useState(restaurant || defaultValues);
   const [notify, setNotify] = useState("");
   const [timeOpen, setTimeOpen] = useState(new Date());
   const [timeClose, setTimeClose] = useState(new Date());
 
   const [open, setOpen] = useState(false);
+
+  let isMandatory = true;
+
+  if (method === "POST") {
+    isMandatory = true;
+  }
+
+  if (method === "PATCH") {
+    isMandatory = false;
+  }
 
   const handleClose = () => {
     setOpen(false);
@@ -96,7 +107,8 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
     let postURL = "https://tsering-takehome-api.herokuapp.com/api/restaurants";
 
     if (method === "PATCH") {
-      postURL += `${restaurant.id}`;
+      postURL += `/${restaurant.id}`;
+      console.log(postURL);
     }
 
     fetch(postURL, jsonObject)
@@ -112,6 +124,7 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
           // update restaurants
           getAllRestaurants();
         } else {
+          console.log("updating");
           setRestaurant(data);
         }
       })
@@ -126,20 +139,20 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
     <div>
       <form onSubmit={handleSubmit} className="restaurantForm">
         <TextField
-          required
+          required={isMandatory}
           id="outlined-required"
           name="name"
-          label="Required"
+          label="Name"
           placeholder="Restaurant name"
           value={formValues.name}
           onChange={handleInputChange}
         />
 
         <TextField
-          required
+          required={isMandatory}
           id="outlined-multiline-flexible"
           name="description"
-          label="Required"
+          label="Description"
           multiline
           maxRows={5}
           value={formValues.description}
@@ -147,7 +160,7 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
         />
 
         <TextField
-          required
+          required={isMandatory}
           select
           label="Price"
           helperText="Price range"
@@ -162,18 +175,18 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
         </TextField>
 
         <TextField
-          required
+          required={isMandatory}
           id="outlined-required"
-          label="Required"
+          label="Cuisine"
           name="cuisine"
           placeholder="Restaurant cuisine"
           value={formValues.cuisine}
           onChange={handleInputChange}
         />
         <TextField
-          required
+          required={isMandatory}
           id="outlined-required"
-          label="Required"
+          label="Location"
           name="location"
           placeholder="Restaurant location"
           value={formValues.location}
@@ -182,7 +195,7 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
 
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <TimePicker
-            required
+            required={isMandatory}
             label="Opening Time"
             value={timeOpen}
             onChange={handleOpenTimeChange}
@@ -190,7 +203,7 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
           />
 
           <TimePicker
-            required
+            required={isMandatory}
             label="Closing Time"
             value={timeClose}
             onChange={handleCloseTimeChange}
@@ -223,7 +236,7 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
         </TextField>
 
         <Button variant="contained" type="submit" onClick={createNewRestaurant}>
-          Create
+          Submit
         </Button>
 
         <Backdrop
