@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CreateRestaurantForm from "../../components/forms/createRestaurant/CreateRestaurantForm";
+import FormModal from "../../components/modal/FormModal";
 
 function SingleRestaurant() {
   let params = useParams();
@@ -30,28 +31,32 @@ function SingleRestaurant() {
       });
   };
 
-  useEffect(() => {
-    const getARestaurant = () => {
-      fetch(getURL)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          setRestaurantData(data);
-        });
-    };
+  const getARestaurant = () => {
+    fetch(getURL)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(restaurantData);
+        setRestaurantData(data);
+      });
+  };
 
+  useEffect(() => {
+    console.log("refresh");
     getARestaurant();
   }, []);
 
   return (
     <div>
-      {Object.keys(restaurantData).length && (
+      {Object.keys(restaurantData).length > 0 && (
         <>
-          <CreateRestaurantForm
-            restaurant={restaurantData}
-            setRestaurant={setRestaurantData}
-            method="PATCH"
-          />
+          <div>
+            <CreateRestaurantForm
+              restaurant={restaurantData}
+              setRestaurant={setRestaurantData}
+              getARestaurant={getARestaurant}
+              method="PATCH"
+            />
+          </div>
           <div>{restaurantData.name}</div>
         </>
       )}

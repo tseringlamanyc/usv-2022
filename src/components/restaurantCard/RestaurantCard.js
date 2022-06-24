@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import "./RestaurantCard.scss";
 
-function RestaurantCard({ restaurant }) {
+function RestaurantCard({ restaurant, setRestaurantData }) {
   let imageURL = `https://source.unsplash.com/random/?${restaurant.cuisine},food`;
   return (
     <div className="restaurantCard">

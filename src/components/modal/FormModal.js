@@ -17,14 +17,14 @@ const style = {
   p: 4,
 };
 
-function FormModal({ getAllRestaurants }) {
+function FormModal({ getAllRestaurants, prompt }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <div>
-      <Button onClick={handleOpen}> Add Restaurant</Button>
+      <Button onClick={handleOpen}>{prompt}</Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <CreateRestaurantForm getAllRestaurants={getAllRestaurants} />

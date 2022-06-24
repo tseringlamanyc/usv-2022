@@ -26,7 +26,13 @@ const defaultValues = {
 const priceRanges = ["$", "$$", "$$$", "$$$$"];
 const dinningOptions = ["Takeout Only", "Delivery Only"];
 
-function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, method = "POST" }) {
+function CreateRestaurantForm({
+  getAllRestaurants,
+  restaurant,
+  setRestaurant,
+  getARestaurant,
+  method = "POST",
+}) {
   const [formValues, setFormValues] = useState(restaurant || defaultValues);
   const [notify, setNotify] = useState("");
   const [timeOpen, setTimeOpen] = useState(new Date());
@@ -121,11 +127,13 @@ function CreateRestaurantForm({ getAllRestaurants, restaurant, setRestaurant, me
           setNotify(`${name} was successfully created`);
           handleToggle();
 
-          // update restaurants
+          // refresh restaurants
           getAllRestaurants();
         } else {
-          console.log("updating");
+          setNotify(`Successfully updated`);
+          handleToggle();
           setRestaurant(data);
+          getARestaurant();
         }
       })
       .catch((err) => {
