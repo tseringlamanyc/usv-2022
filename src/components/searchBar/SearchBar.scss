@@ -1,0 +1,38 @@
+.bar {
+  &_image {
+    z-index: -1;
+    position: relative;
+  }
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  &_search {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 2px solid black;
+    height: 50px;
+    width: 700px;
+    margin: 0 auto;
+    margin-top: -2rem;
+    z-index: 100;
+    background-color: white;
+
+    .icon {
+      color: black;
+    }
+
+    input {
+      border: hidden;
+      border-right: 1px solid black;
+    }
+
+    input:focus {
+      outline: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.212);
+      border-right: none;
+    }
+  }
+}

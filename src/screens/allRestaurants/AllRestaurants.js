@@ -1,10 +1,13 @@
 import React from "react";
 import { useEffect, useState } from "react";
+
 import RestaurantList from "../../components/restaurantList/RestaurantList.js";
 import SearchBar from "../../components/searchBar/SearchBar.js";
 import LoadingView from "../../components/views/LoadingView.js";
 import EmptyList from "../../components/views/EmptyList.js";
-import CreateRestaurantForm from "../../components/forms/createRestaurant/CreateRestaurantForm.js";
+import FormModal from "../../components/modal/FormModal.js";
+import Navbar from "../../components/navBar/NavBar.js";
+
 import { endpointURL } from "../../util/EndpointURL";
 
 import "./AllRestaurants.scss";
@@ -50,9 +53,11 @@ function AllRestaurants() {
   }, []);
 
   return (
-    <div>
+    <div className="allRestaurant">
+      <Navbar />
       <SearchBar searchHandler={searchHandler} />
-      <CreateRestaurantForm getAllRestaurants={fetchRestaurants} />
+
+      <FormModal getAllRestaurants={fetchRestaurants} />
 
       {isLoading && <LoadingView />}
 
