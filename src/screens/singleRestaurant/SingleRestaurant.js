@@ -12,6 +12,7 @@ import { endpointURL } from "../../util/EndpointURL";
 
 import "./SingleRestaurant.scss";
 import Navbar from "../../components/navBar/NavBar";
+import RestaurantImages from "../../components/restaurantDetail/restaurantImages/RestaurantImages";
 
 function SingleRestaurant() {
   let params = useParams();
@@ -74,6 +75,7 @@ function SingleRestaurant() {
       <Navbar />
       {Object.keys(restaurantData).length > 0 && (
         <>
+          <RestaurantImages restaurant={restaurantData.cuisine} />
           <div>{restaurantData.name}</div>
           <div>{restaurantData.description}</div>
           <div>{restaurantData.id}</div>

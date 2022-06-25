@@ -1,4 +1,11 @@
 .singleRestaurant {
   margin: 0 auto;
   max-width: 1500px;
+  padding: 0 25px;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  .singleRestaurant {
+    padding: 0 5px;
+  }
 }
