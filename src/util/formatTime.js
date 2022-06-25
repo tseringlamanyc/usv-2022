@@ -12,6 +12,10 @@ const formatTime = (e) => {
     formattedMin = `0${formattedMin}`;
   }
 
+  if (formattedSec.length === 1) {
+    formattedSec = `0${formattedSec}`;
+  }
+
   formattedTime = `${formattedHour}:${formattedMin}:${formattedSec}`;
 
   return formattedTime;

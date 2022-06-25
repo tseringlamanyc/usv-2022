@@ -57,7 +57,7 @@ function AllRestaurants() {
       <Navbar />
       <SearchBar searchHandler={searchHandler} />
 
-      <FormModal getAllRestaurants={fetchRestaurants} prompt="Add Restaurant" />
+      <FormModal getAllRestaurants={fetchRestaurants} prompt="Add Restaurant" method="POST" />
 
       {isLoading && <LoadingView />}
 

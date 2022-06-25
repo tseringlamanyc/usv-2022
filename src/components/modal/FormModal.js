@@ -17,7 +17,14 @@ const style = {
   p: 4,
 };
 
-function FormModal({ getAllRestaurants, prompt }) {
+function FormModal({
+  getAllRestaurants,
+  prompt,
+  method,
+  getARestaurant,
+  restaurant,
+  setRestaurant,
+}) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -27,7 +34,13 @@ function FormModal({ getAllRestaurants, prompt }) {
       <Button onClick={handleOpen}>{prompt}</Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
-          <CreateRestaurantForm getAllRestaurants={getAllRestaurants} />
+          <CreateRestaurantForm
+            getAllRestaurants={getAllRestaurants}
+            restaurant={restaurant}
+            method={method}
+            getARestaurant={getARestaurant}
+            setRestaurant={setRestaurant}
+          />
         </Box>
       </Modal>
     </div>

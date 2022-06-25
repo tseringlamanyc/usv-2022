@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Button, Alert, Backdrop, TextField, Input } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
@@ -9,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { formatTime } from "../../../util/formatTime";
 
 import "./CreateRestaurantForm.scss";
-import { getDateFromHours } from "../../../util/string_to_time";
+import Alertview from "../../alert/Alertview";
 
 const defaultValues = {
   name: "",
@@ -40,6 +40,14 @@ function CreateRestaurantForm({
 
   const [open, setOpen] = useState(false);
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleToggle = () => {
+    setOpen(!open);
+  };
+
   let isMandatory = true;
 
   if (method === "POST") {
@@ -49,14 +57,6 @@ function CreateRestaurantForm({
   if (method === "PATCH") {
     isMandatory = false;
   }
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleToggle = () => {
-    setOpen(!open);
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -127,11 +127,20 @@ function CreateRestaurantForm({
           setNotify(`${name} was successfully created`);
           handleToggle();
 
+          setTimeout(() => {
+            handleClose();
+          }, 2000);
+
           // refresh restaurants
           getAllRestaurants();
         } else {
           setNotify(`Successfully updated`);
           handleToggle();
+
+          setTimeout(() => {
+            handleClose();
+          }, 2000);
+
           setRestaurant(data);
           getARestaurant();
         }
@@ -247,14 +256,13 @@ function CreateRestaurantForm({
           Submit
         </Button>
 
-        <Backdrop
-          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        <Alertview
+          notify={notify.length > 0 && notify}
+          alertVariant="filled"
+          alertType="success"
+          handleClose={handleClose}
           open={open}
-          onClick={handleClose}>
-          <Alert variant="filled" severity="success">
-            {notify}
-          </Alert>
-        </Backdrop>
+        />
       </form>
     </div>
   );
