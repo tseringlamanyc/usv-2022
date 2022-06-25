@@ -7,11 +7,14 @@ import FormModal from "../../components/modal/FormModal";
 import Alertview from "../../components/alert/Alertview";
 import { Button } from "@mui/material";
 
+import CreateReservationForm from "../../components/forms/createReservation/CreateReservationForm";
+import { endpointURL } from "../../util/EndpointURL";
+
 function SingleRestaurant() {
   let params = useParams();
-  let restaurantId = params.id;
+  const restaurantId = params.id;
 
-  let getURL = `https://tsering-takehome-api.herokuapp.com/api/restaurants/${restaurantId}`;
+  let getURL = `${endpointURL}restaurants/${restaurantId}`;
 
   const [restaurantData, setRestaurantData] = useState({});
   let navigate = useNavigate();
@@ -28,7 +31,7 @@ function SingleRestaurant() {
   };
 
   const deleteRestaurant = () => {
-    let deleteEndpoint = `https://tsering-takehome-api.herokuapp.com/api/restaurants/${restaurantId}`;
+    let deleteEndpoint = `${endpointURL}restaurants/${restaurantId}`;
 
     let jsonObject = {
       method: "DELETE",
@@ -60,7 +63,6 @@ function SingleRestaurant() {
   };
 
   useEffect(() => {
-    console.log("refresh");
     getARestaurant();
   }, []);
 
@@ -69,12 +71,6 @@ function SingleRestaurant() {
       {Object.keys(restaurantData).length > 0 && (
         <>
           <div>
-            {/* <CreateRestaurantForm
-              restaurant={restaurantData}
-              setRestaurant={setRestaurantData}
-              getARestaurant={getARestaurant}
-              method="PATCH"
-            /> */}
             <FormModal
               restaurant={restaurantData}
               setRestaurant={setRestaurantData}
@@ -85,7 +81,7 @@ function SingleRestaurant() {
           </div>
           <div>{restaurantData.name}</div>
           <div>{restaurantData.description}</div>
-          <div>{restaurantData.location}</div>
+          <div>{restaurantData.id}</div>
           <div>{restaurantData.openingTime}</div>
         </>
       )}
@@ -105,6 +101,11 @@ function SingleRestaurant() {
         handleClose={handleClose}
         open={open}
       />
+
+      <h3>Make Reservation</h3>
+      <CreateReservationForm id={restaurantId} method="POST" />
+
+      <h3>Current Reservations</h3>
     </div>
   );
 }

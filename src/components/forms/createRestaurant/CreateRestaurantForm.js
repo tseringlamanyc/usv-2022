@@ -7,9 +7,10 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import MenuItem from "@mui/material/MenuItem";
 
 import { formatTime } from "../../../util/formatTime";
+import { endpointURL } from "../../../util/EndpointURL";
+import Alertview from "../../alert/Alertview";
 
 import "./CreateRestaurantForm.scss";
-import Alertview from "../../alert/Alertview";
 
 const defaultValues = {
   name: "",
@@ -71,9 +72,6 @@ function CreateRestaurantForm({
   };
 
   const handleOpenTimeChange = (e) => {
-    if (e === timeOpen) {
-      console.log("same open time");
-    }
     let timeStr = formatTime(e);
     setTimeOpen(e);
     setFormValues({
@@ -110,7 +108,7 @@ function CreateRestaurantForm({
       }),
     };
 
-    let postURL = "https://tsering-takehome-api.herokuapp.com/api/restaurants";
+    let postURL = `${endpointURL}restaurants`;
 
     if (method === "PATCH") {
       postURL += `/${restaurant.id}`;

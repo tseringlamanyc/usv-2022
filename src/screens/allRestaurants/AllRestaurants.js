@@ -33,7 +33,7 @@ function AllRestaurants() {
 
   const fetchRestaurants = async () => {
     try {
-      let url = `${endpointURL}api/restaurants`;
+      let url = `${endpointURL}restaurants`;
       const res = await fetch(url);
 
       if (!res.ok) {
