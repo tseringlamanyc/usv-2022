@@ -1,6 +1,7 @@
 .restaurantsList {
   display: flex;
   justify-content: center;
+  flex-direction: row;
   padding: 20px;
   flex-wrap: wrap;
   max-width: 1200px;

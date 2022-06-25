@@ -75,7 +75,6 @@ function SingleRestaurant() {
       <Navbar />
       {Object.keys(restaurantData).length > 0 && (
         <>
-          <RestaurantImages restaurant={restaurantData.cuisine} />
           <div>{restaurantData.name}</div>
           <div>{restaurantData.description}</div>
           <div>{restaurantData.id}</div>

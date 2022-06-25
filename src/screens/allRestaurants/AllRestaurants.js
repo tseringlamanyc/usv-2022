@@ -41,7 +41,8 @@ function AllRestaurants() {
       }
 
       const json = await res.json();
-      setAllRestaurants(json.restaurants);
+      let sorted = json.restaurants.sort((a, b) => a.name.localeCompare(b.name));
+      setAllRestaurants(sorted);
       setIsLoading(false);
     } catch (err) {
       SetError(err.message);
