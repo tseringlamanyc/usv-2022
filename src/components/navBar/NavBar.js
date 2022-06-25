@@ -15,6 +15,10 @@ function Navbar() {
       <div className={isExpanded ? "navbar_items navbar_items-expanded" : "navbar_items"}>
         <ul>
           <li>
+            <a href="/">Home Page</a>
+          </li>
+
+          <li>
             <a href="/">Reservations</a>
           </li>
 

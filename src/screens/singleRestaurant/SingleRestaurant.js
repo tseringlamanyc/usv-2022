@@ -10,6 +10,9 @@ import { Button } from "@mui/material";
 import CreateReservationForm from "../../components/forms/createReservation/CreateReservationForm";
 import { endpointURL } from "../../util/EndpointURL";
 
+import "./SingleRestaurant.scss";
+import Navbar from "../../components/navBar/NavBar";
+
 function SingleRestaurant() {
   let params = useParams();
   const restaurantId = params.id;
@@ -67,9 +70,14 @@ function SingleRestaurant() {
   }, []);
 
   return (
-    <div>
+    <div className="singleRestaurant">
+      <Navbar />
       {Object.keys(restaurantData).length > 0 && (
         <>
+          <div>{restaurantData.name}</div>
+          <div>{restaurantData.description}</div>
+          <div>{restaurantData.id}</div>
+          <div>{restaurantData.openingTime}</div>
           <div>
             <FormModal
               restaurant={restaurantData}
@@ -79,10 +87,6 @@ function SingleRestaurant() {
               prompt="Edit"
             />
           </div>
-          <div>{restaurantData.name}</div>
-          <div>{restaurantData.description}</div>
-          <div>{restaurantData.id}</div>
-          <div>{restaurantData.openingTime}</div>
         </>
       )}
 
