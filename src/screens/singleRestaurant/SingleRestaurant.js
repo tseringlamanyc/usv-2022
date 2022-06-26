@@ -2,11 +2,14 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
+
 import FormModal from "../../components/modal/FormModal";
 import Alertview from "../../components/alert/Alertview";
-import { Button } from "@mui/material";
-
 import CreateReservationForm from "../../components/forms/createReservation/CreateReservationForm";
 import { endpointURL } from "../../util/EndpointURL";
 
@@ -24,6 +27,7 @@ function SingleRestaurant() {
   let navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
+  const [openDialogue, setOpenDialogue] = useState(false);
   const [notify, setNotify] = useState("");
 
   const handleClose = () => {
@@ -32,6 +36,14 @@ function SingleRestaurant() {
 
   const handleToggle = () => {
     setOpen(!open);
+  };
+
+  const handleDialogueOpen = () => {
+    setOpenDialogue(true);
+  };
+
+  const handleDialogueClose = () => {
+    setOpenDialogue(false);
   };
 
   const deleteRestaurant = () => {
@@ -49,7 +61,7 @@ function SingleRestaurant() {
       .then((data) => {
         setNotify("Restaurant Deleted. Redirecting to home page ...");
         handleToggle();
-
+        handleDialogueClose();
         setTimeout(function () {
           handleClose();
           navigate("/");
@@ -95,9 +107,20 @@ function SingleRestaurant() {
         variant="outlined"
         color="error"
         startIcon={<DeleteIcon />}
-        onClick={deleteRestaurant}>
+        onClick={handleDialogueOpen}>
         Delete
       </Button>
+
+      <Dialog open={openDialogue} onClose={handleDialogueClose}>
+        <DialogTitle id="alert-dialog-title">{"Confirm Delete"}</DialogTitle>
+
+        <DialogActions>
+          <Button color="error" onClick={deleteRestaurant}>
+            Delete
+          </Button>
+          <Button onClick={handleDialogueClose}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
 
       <Alertview
         notify={notify.length > 0 && notify}

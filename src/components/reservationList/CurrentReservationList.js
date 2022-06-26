@@ -1,7 +1,12 @@
 import React from "react";
+import ReservationCard from "../reservationCard/ReservationCard";
 
 function CurrentReservationList() {
-  return <div>CurrentReservationList</div>;
+  return (
+    <div>
+      <ReservationCard />
+    </div>
+  );
 }
 
 export default CurrentReservationList;

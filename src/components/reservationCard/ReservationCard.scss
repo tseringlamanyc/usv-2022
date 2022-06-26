@@ -1,0 +1,29 @@
+.reservationCard {
+  height: 70px;
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  border-radius: 8px;
+
+  &_avatar {
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    background-color: gray;
+
+    &_letter {
+      text-align: center;
+      margin: 6px auto;
+      color: white;
+    }
+  }
+
+  &_info {
+    div {
+      padding: 3px;
+    }
+  }
+}
