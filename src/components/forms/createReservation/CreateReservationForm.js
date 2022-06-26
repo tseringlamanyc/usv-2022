@@ -6,11 +6,13 @@ import MenuItem from "@mui/material/MenuItem";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-
-import "./CreateReservationForm.scss";
 import { endpointURL } from "../../../util/EndpointURL";
 import { formatTime } from "../../../util/formatTime";
 import { formatDate } from "../../../util/formatDate";
+
+import Alertview from "../../alert/Alertview";
+
+import "./CreateReservationForm.scss";
 
 let guests = [...Array(10).keys()];
 
@@ -19,14 +21,23 @@ function CreateReservationForm({ id, method = "POST" }) {
     firstName: "",
     lastName: "",
     phoneNumber: "",
-    time: "",
+    time: null,
     numGuests: "",
     restaurantId: id,
   };
 
   const [formValues, setFormValues] = useState(reservationObj);
-  const [dateTime, setDateTime] = useState(new Date("2022-01-01T21:11:54"));
+  const [dateTime, setDateTime] = useState(reservationObj.time || null);
   const [notify, setNotify] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleToggle = () => {
+    setOpen(!open);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -79,8 +90,13 @@ function CreateReservationForm({ id, method = "POST" }) {
       .then((data) => {
         if (method === "POST") {
           setFormValues(reservationObj);
+          setDateTime(null);
           setNotify("Reservation created");
-          console.log(data);
+          handleToggle();
+
+          setTimeout(() => {
+            handleClose();
+          }, 2000);
         } else {
         }
       })
@@ -98,7 +114,7 @@ function CreateReservationForm({ id, method = "POST" }) {
           required
           id="outline-required"
           name="firstName"
-          label="firstName"
+          label="First Name"
           placeholder="First Name"
           value={formValues.firstName}
           onChange={handleInputChange}
@@ -108,7 +124,7 @@ function CreateReservationForm({ id, method = "POST" }) {
           required
           id="outline-required"
           name="lastName"
-          label="lastName"
+          label="Last Name"
           placeholder="Last Name"
           value={formValues.lastName}
           onChange={handleInputChange}
@@ -142,6 +158,7 @@ function CreateReservationForm({ id, method = "POST" }) {
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DateTimePicker
             required
+            id="outline-required"
             label="Time"
             value={dateTime}
             onChange={handleDateTimeChange}
@@ -154,6 +171,14 @@ function CreateReservationForm({ id, method = "POST" }) {
         <Button variant="contained" type="submit" onClick={createNewReservation}>
           Submit
         </Button>
+
+        <Alertview
+          notify={notify.length > 0 && notify}
+          alertVariant="filled"
+          alertType="success"
+          handleClose={handleClose}
+          open={open}
+        />
       </form>
     </div>
   );

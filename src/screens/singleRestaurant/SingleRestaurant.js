@@ -12,7 +12,7 @@ import { endpointURL } from "../../util/EndpointURL";
 
 import "./SingleRestaurant.scss";
 import Navbar from "../../components/navBar/NavBar";
-import RestaurantImages from "../../components/restaurantDetail/restaurantImages/RestaurantImages";
+import CurrentReservationList from "../../components/reservationList/CurrentReservationList";
 
 function SingleRestaurant() {
   let params = useParams();
@@ -111,6 +111,7 @@ function SingleRestaurant() {
       <CreateReservationForm id={restaurantId} method="POST" />
 
       <h3>Current Reservations</h3>
+      <CurrentReservationList />
     </div>
   );
 }

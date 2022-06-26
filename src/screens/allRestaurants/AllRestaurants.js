@@ -14,7 +14,7 @@ import "./AllRestaurants.scss";
 
 function AllRestaurants() {
   const [allRestaurants, setAllRestaurants] = useState([]);
-  const [error, SetError] = useState(null);
+  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -45,7 +45,7 @@ function AllRestaurants() {
       setAllRestaurants(sorted);
       setIsLoading(false);
     } catch (err) {
-      SetError(err.message);
+      setError(err.message);
     }
   };
 
