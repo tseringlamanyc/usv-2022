@@ -1,18 +1,14 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
-
-import FormModal from "../../components/modal/FormModal";
 import Alertview from "../../components/alert/Alertview";
 import CreateReservationForm from "../../components/forms/createReservation/CreateReservationForm";
 import { endpointURL } from "../../util/EndpointURL";
-
 import "./SingleRestaurant.scss";
 import Navbar from "../../components/navBar/NavBar";
 import CurrentReservationList from "../../components/reservationList/CurrentReservationList";
