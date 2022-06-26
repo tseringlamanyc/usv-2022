@@ -5,9 +5,8 @@ import RestaurantList from "../../components/restaurantList/RestaurantList.js";
 import SearchBar from "../../components/searchBar/SearchBar.js";
 import LoadingView from "../../components/views/LoadingView.js";
 import EmptyList from "../../components/views/EmptyList.js";
-import FormModal from "../../components/modal/FormModal.js";
+import DialogPopup from "../../components/dialog/DialogPopup.js";
 import Navbar from "../../components/navBar/NavBar.js";
-
 import { endpointURL } from "../../util/EndpointURL";
 
 import "./AllRestaurants.scss";
@@ -129,11 +128,12 @@ function AllRestaurants() {
         serviceHandler={serviceHandler}
       />
 
-      <FormModal
+      <DialogPopup
         getAllRestaurants={fetchRestaurants}
         variant={"outlined"}
         prompt="Add Restaurant"
         method="POST"
+        dialogTitle="Create Restaurant"
       />
 
       {isLoading && <LoadingView />}

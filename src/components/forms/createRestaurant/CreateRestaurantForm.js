@@ -33,6 +33,7 @@ function CreateRestaurantForm({
   setRestaurant,
   getARestaurant,
   method = "POST",
+  closeDialog,
 }) {
   const [formValues, setFormValues] = useState(restaurant || defaultValues);
   const [notify, setNotify] = useState("");
@@ -127,6 +128,7 @@ function CreateRestaurantForm({
 
           setTimeout(() => {
             handleClose();
+            closeDialog();
           }, 2000);
 
           // refresh restaurants
@@ -137,6 +139,7 @@ function CreateRestaurantForm({
 
           setTimeout(() => {
             handleClose();
+            closeDialog();
           }, 2000);
 
           setRestaurant(data);

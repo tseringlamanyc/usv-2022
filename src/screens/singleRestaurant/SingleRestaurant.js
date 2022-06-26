@@ -16,6 +16,7 @@ import { endpointURL } from "../../util/EndpointURL";
 import "./SingleRestaurant.scss";
 import Navbar from "../../components/navBar/NavBar";
 import CurrentReservationList from "../../components/reservationList/CurrentReservationList";
+import DialogPopup from "../../components/dialog/DialogPopup";
 
 function SingleRestaurant() {
   let params = useParams();
@@ -92,7 +93,14 @@ function SingleRestaurant() {
           <div>{restaurantData.id}</div>
           <div>{restaurantData.openingTime}</div>
           <div>
-            <FormModal
+            {/* <FormModal
+              restaurant={restaurantData}
+              setRestaurant={setRestaurantData}
+              getARestaurant={getARestaurant}
+              method="PATCH"
+              prompt="Edit"
+            /> */}
+            <DialogPopup
               restaurant={restaurantData}
               setRestaurant={setRestaurantData}
               getARestaurant={getARestaurant}
@@ -113,7 +121,6 @@ function SingleRestaurant() {
 
       <Dialog open={openDialogue} onClose={handleDialogueClose}>
         <DialogTitle id="alert-dialog-title">{"Confirm Delete"}</DialogTitle>
-
         <DialogActions>
           <Button color="error" onClick={deleteRestaurant}>
             Delete
