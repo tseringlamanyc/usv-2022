@@ -8,6 +8,10 @@ import EmptyList from "../../components/views/EmptyList.js";
 import FormModal from "../../components/modal/FormModal.js";
 import Navbar from "../../components/navBar/NavBar.js";
 
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
+
 import { endpointURL } from "../../util/EndpointURL";
 
 import "./AllRestaurants.scss";
@@ -17,6 +21,15 @@ function AllRestaurants() {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [openDialogue, setOpenDialogue] = useState(false);
+
+  const handleDialogueOpen = () => {
+    setOpenDialogue(true);
+  };
+
+  const handleDialogueClose = () => {
+    setOpenDialogue(false);
+  };
 
   const searchHandler = (e) => {
     let lowerCase = e.target.value.toLowerCase();
@@ -56,9 +69,14 @@ function AllRestaurants() {
   return (
     <div className="allRestaurant">
       <Navbar />
-      <SearchBar searchHandler={searchHandler} />
+      <SearchBar searchHandler={searchHandler} restaurantData={allRestaurants} />
 
-      <FormModal getAllRestaurants={fetchRestaurants} prompt="Add Restaurant" method="POST" />
+      <FormModal
+        getAllRestaurants={fetchRestaurants}
+        variant={"outlined"}
+        prompt="Add Restaurant"
+        method="POST"
+      />
 
       {isLoading && <LoadingView />}
 

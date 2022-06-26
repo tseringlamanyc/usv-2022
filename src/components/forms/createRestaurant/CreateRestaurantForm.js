@@ -22,6 +22,7 @@ const defaultValues = {
   cuisine: "",
   location: "",
   diningRestriction: "",
+  phoneNumber: "",
 };
 
 const priceRanges = ["$", "$$", "$$$", "$$$$"];
@@ -90,7 +91,16 @@ function CreateRestaurantForm({
   };
 
   const createNewRestaurant = () => {
-    let { name, description, price, cuisine, location, openingTime, closingTime } = formValues;
+    let {
+      name,
+      description,
+      price,
+      cuisine,
+      location,
+      openingTime,
+      closingTime,
+      diningRestriction,
+    } = formValues;
 
     let jsonObject = {
       method: method,
@@ -105,6 +115,7 @@ function CreateRestaurantForm({
         location,
         openingTime,
         closingTime,
+        diningRestriction,
       }),
     };
 

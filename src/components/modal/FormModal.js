@@ -24,6 +24,7 @@ function FormModal({
   getARestaurant,
   restaurant,
   setRestaurant,
+  variant,
 }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -31,7 +32,9 @@ function FormModal({
 
   return (
     <div>
-      <Button onClick={handleOpen}>{prompt}</Button>
+      <Button variant={variant} onClick={handleOpen}>
+        {prompt}
+      </Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <CreateRestaurantForm
