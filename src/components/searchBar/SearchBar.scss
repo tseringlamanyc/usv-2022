@@ -1,3 +1,8 @@
 .bar {
   border: 1px solid rgb(199, 193, 193);
+
+  &_search {
+    display: flex;
+    gap: 35px;
+  }
 }

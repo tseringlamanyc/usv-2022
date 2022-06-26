@@ -22,7 +22,6 @@ const defaultValues = {
   cuisine: "",
   location: "",
   diningRestriction: "",
-  phoneNumber: "",
 };
 
 const priceRanges = ["$", "$$", "$$$", "$$$$"];
@@ -37,8 +36,8 @@ function CreateRestaurantForm({
 }) {
   const [formValues, setFormValues] = useState(restaurant || defaultValues);
   const [notify, setNotify] = useState("");
-  const [timeOpen, setTimeOpen] = useState(new Date());
-  const [timeClose, setTimeClose] = useState(new Date());
+  const [timeOpen, setTimeOpen] = useState(null);
+  const [timeClose, setTimeClose] = useState(null);
 
   const [open, setOpen] = useState(false);
 
@@ -91,16 +90,7 @@ function CreateRestaurantForm({
   };
 
   const createNewRestaurant = () => {
-    let {
-      name,
-      description,
-      price,
-      cuisine,
-      location,
-      openingTime,
-      closingTime,
-      diningRestriction,
-    } = formValues;
+    let { name, description, price, cuisine, location, openingTime, closingTime } = formValues;
 
     let jsonObject = {
       method: method,
@@ -115,7 +105,6 @@ function CreateRestaurantForm({
         location,
         openingTime,
         closingTime,
-        diningRestriction,
       }),
     };
 
@@ -240,7 +229,7 @@ function CreateRestaurantForm({
         {/* OPTIONALS */}
         <TextField
           type="tel"
-          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          mask="[0-9]{3}-[0-9]{3}-[0-9]{4}"
           name="phoneNumber"
           placeholder="Phone number"
           value={formValues.phoneNumber}

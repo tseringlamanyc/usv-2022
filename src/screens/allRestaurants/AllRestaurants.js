@@ -8,41 +8,82 @@ import EmptyList from "../../components/views/EmptyList.js";
 import FormModal from "../../components/modal/FormModal.js";
 import Navbar from "../../components/navBar/NavBar.js";
 
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogTitle from "@mui/material/DialogTitle";
-
 import { endpointURL } from "../../util/EndpointURL";
 
 import "./AllRestaurants.scss";
 
 function AllRestaurants() {
   const [allRestaurants, setAllRestaurants] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  const [restaurantLocation, setRestaurantLocation] = useState("");
+  const [restaurantCuisine, setRestaurantCuisine] = useState("");
+  const [restaurantPrice, setRestaurantPrice] = useState("");
+  const [restaurantService, setRestaurantSerivce] = useState("");
+
+  const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [openDialogue, setOpenDialogue] = useState(false);
-
-  const handleDialogueOpen = () => {
-    setOpenDialogue(true);
-  };
-
-  const handleDialogueClose = () => {
-    setOpenDialogue(false);
-  };
 
   const searchHandler = (e) => {
     let lowerCase = e.target.value.toLowerCase();
     setSearchTerm(lowerCase);
   };
 
-  const filterRestaurants = allRestaurants.filter((ele) => {
+  const locationHandler = (e) => {
+    setRestaurantLocation(e.target.value);
+  };
+
+  const cuisineHandler = (e) => {
+    setRestaurantCuisine(e.target.value);
+  };
+
+  const priceHandler = (e) => {
+    setRestaurantPrice(e.target.value);
+  };
+
+  const serviceHandler = (e) => {
+    setRestaurantSerivce(e.target.value);
+  };
+
+  const filterByName = (filteredData) => {
     if (searchTerm === "") {
-      return ele;
-    } else {
-      return ele.name.toLowerCase().includes(searchTerm);
+      return filteredData;
     }
-  });
+    const filterRestaurant = filteredData.filter((r) => r.name.toLowerCase().includes(searchTerm));
+    return filterRestaurant;
+  };
+
+  const filterByLocation = (filteredData) => {
+    if (!restaurantLocation || restaurantLocation === "All") {
+      return filteredData;
+    }
+    const filterRestaurants = filteredData.filter((r) => r.location === restaurantLocation);
+    return filterRestaurants;
+  };
+
+  const filterByCuisine = (filteredData) => {
+    if (!restaurantCuisine || restaurantCuisine === "All") {
+      return filteredData;
+    }
+    const filterRestaurants = filteredData.filter((r) => r.cuisine === restaurantCuisine);
+    return filterRestaurants;
+  };
+
+  const filterByPrice = (filteredData) => {
+    if (!restaurantPrice || restaurantPrice === "All") {
+      return filteredData;
+    }
+    const filterRestaurants = filteredData.filter((r) => r.price === restaurantPrice);
+    return filterRestaurants;
+  };
+
+  const filterByService = (filteredData) => {
+    if (!restaurantService || restaurantService === "All") {
+      return filteredData;
+    }
+    const filterRestaurants = filteredData.filter((r) => r.diningRestriction === restaurantService);
+    return filterRestaurants;
+  };
 
   const fetchRestaurants = async () => {
     try {
@@ -56,6 +97,7 @@ function AllRestaurants() {
       const json = await res.json();
       let sorted = json.restaurants.sort((a, b) => a.name.localeCompare(b.name));
       setAllRestaurants(sorted);
+      setFilteredRestaurants(sorted);
       setIsLoading(false);
     } catch (err) {
       setError(err.message);
@@ -66,10 +108,26 @@ function AllRestaurants() {
     fetchRestaurants();
   }, []);
 
+  useEffect(() => {
+    let fData = filterByName(allRestaurants);
+    fData = filterByLocation(fData);
+    fData = filterByCuisine(fData);
+    fData = filterByPrice(fData);
+    fData = filterByService(fData);
+    setFilteredRestaurants(fData);
+  }, [searchTerm, restaurantLocation, restaurantCuisine, restaurantPrice, restaurantService]);
+
   return (
     <div className="allRestaurant">
       <Navbar />
-      <SearchBar searchHandler={searchHandler} restaurantData={allRestaurants} />
+      <SearchBar
+        searchHandler={searchHandler}
+        restaurantData={allRestaurants}
+        locationHandler={locationHandler}
+        cuisineHandler={cuisineHandler}
+        priceHandler={priceHandler}
+        serviceHandler={serviceHandler}
+      />
 
       <FormModal
         getAllRestaurants={fetchRestaurants}
@@ -80,12 +138,12 @@ function AllRestaurants() {
 
       {isLoading && <LoadingView />}
 
-      {!isLoading && searchTerm.length !== 0 && filterRestaurants.length === 0 && (
+      {!isLoading && searchTerm.length !== 0 && filteredRestaurants.length === 0 && (
         <EmptyList searchTerm={searchTerm} />
       )}
 
-      {filterRestaurants.length > 0 && (
-        <RestaurantList searchTerm={searchTerm} restaurants={filterRestaurants} />
+      {filteredRestaurants.length > 0 && (
+        <RestaurantList searchTerm={searchTerm} restaurants={filteredRestaurants} />
       )}
     </div>
   );

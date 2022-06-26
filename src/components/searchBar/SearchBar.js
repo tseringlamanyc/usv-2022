@@ -5,10 +5,17 @@ import MenuItem from "@mui/material/MenuItem";
 
 import "./SearchBar.scss";
 
-function SearchBar({ searchHandler, restaurantData }) {
-  function getLocationsOnly(obj, field) {
+function SearchBar({
+  searchHandler,
+  restaurantData,
+  locationHandler,
+  cuisineHandler,
+  priceHandler,
+  serviceHandler,
+}) {
+  function getValues(obj, field) {
     let arrRes = obj;
-    let arr = [];
+    let arr = ["All"];
 
     for (const res of arrRes) {
       arr.push(res[`${field}`]);
@@ -19,10 +26,10 @@ function SearchBar({ searchHandler, restaurantData }) {
     return arr;
   }
 
-  let allLocations = getLocationsOnly(restaurantData, "location");
-  let allCuisines = getLocationsOnly(restaurantData, "cuisine");
-  let allPrices = getLocationsOnly(restaurantData, "price").sort((a, b) => a.length - b.length);
-  let allRestrictions = getLocationsOnly(restaurantData, "diningRestriction");
+  let allLocations = getValues(restaurantData, "location");
+  let allCuisines = getValues(restaurantData, "cuisine");
+  let allPrices = getValues(restaurantData, "price").sort((a, b) => a.length - b.length);
+  let allRestrictions = getValues(restaurantData, "diningRestriction");
 
   return (
     <div className="bar">
@@ -30,7 +37,7 @@ function SearchBar({ searchHandler, restaurantData }) {
         <SearchIcon className="icon" />
         <input placeholder="Search" onChange={searchHandler}></input>
 
-        <TextField select label="Location" helperText="Location">
+        <TextField select label="Location" helperText="Location" onChange={locationHandler}>
           {allLocations.map((location, index) => (
             <MenuItem key={index} value={location}>
               {location}
@@ -38,7 +45,7 @@ function SearchBar({ searchHandler, restaurantData }) {
           ))}
         </TextField>
 
-        <TextField select label="Cuisine" helperText="Cuisine">
+        <TextField select label="Cuisine" helperText="Cuisine" onChange={cuisineHandler}>
           {allCuisines.map((cuisine, index) => (
             <MenuItem key={index} value={cuisine}>
               {cuisine}
@@ -46,7 +53,7 @@ function SearchBar({ searchHandler, restaurantData }) {
           ))}
         </TextField>
 
-        <TextField select label="Price" helperText="Price">
+        <TextField select label="Price" helperText="Price" onChange={priceHandler}>
           {allPrices.map((price, index) => (
             <MenuItem key={index} value={price}>
               {price}
@@ -54,7 +61,7 @@ function SearchBar({ searchHandler, restaurantData }) {
           ))}
         </TextField>
 
-        <TextField select label="Service" helperText="Service">
+        <TextField select label="Service" helperText="Service" onChange={serviceHandler}>
           {allRestrictions.map((service, index) => (
             <MenuItem key={index} value={service}>
               {service}
