@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 
 import { endpointURL } from "../../util/EndpointURL";
 import { change12To24 } from "../../util/24to12";
-import { getRestaurantName } from "../../util/getNameFromId";
 import "./ReservationGrid.scss";
 
 function ReservationGrid({ allRestaurants }) {
@@ -34,14 +33,12 @@ function ReservationGrid({ allRestaurants }) {
       headerClassName: "super-app-theme--header",
       width: 200,
       valueGetter: (params) => {
-        {
-          allRestaurants.restaurants.filter((ele) => {
-            if (ele.id === params.row.restaurantId) {
-              params.row.restaurantId = ele.name;
-            }
-          });
-          return params.row.restaurantId;
-        }
+        allRestaurants.restaurants.filter((ele) => {
+          if (ele.id === params.row.restaurantId) {
+            params.row.restaurantId = ele.name;
+          }
+        });
+        return params.row.restaurantId;
       },
     },
     {
