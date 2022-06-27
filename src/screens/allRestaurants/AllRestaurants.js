@@ -135,14 +135,7 @@ function AllRestaurants() {
         priceHandler={priceHandler}
         serviceHandler={serviceHandler}
         resetFields={resetFields}
-      />
-
-      <DialogPopup
-        getAllRestaurants={fetchRestaurants}
-        variant={"outlined"}
-        prompt="Add Restaurant"
-        method="POST"
-        dialogTitle="Create Restaurant"
+        fetchRestaurants={fetchRestaurants}
       />
 
       {isLoading && <LoadingView />}

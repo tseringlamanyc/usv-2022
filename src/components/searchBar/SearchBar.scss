@@ -1,9 +1,30 @@
 .bar {
-  border: 1px solid rgb(199, 193, 193);
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgb(199, 193, 193);
+  justify-content: space-between;
+  padding: 20px 10px 0px 10px;
 
   &_search {
+    margin: auto 0;
     display: flex;
-    flex-wrap: wrap;
-    gap: 35px;
+    gap: 20px;
+
+    input {
+      border: hidden;
+      border-right: 1px solid black;
+    }
+
+    input:focus {
+      outline: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.212);
+      border-right: none;
+    }
+  }
+
+  &_filters {
+    display: flex;
+    padding: 15px;
+    gap: 30px;
   }
 }

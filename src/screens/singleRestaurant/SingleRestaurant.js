@@ -1,16 +1,10 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
-import { Button } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogTitle from "@mui/material/DialogTitle";
-
 import Alertview from "../../components/alert/Alertview";
 import Navbar from "../../components/navBar/NavBar";
 import CurrentReservationList from "../../components/reservationList/CurrentReservationList";
+import DialogDelete from "../../components/dialog/DialogDelete";
 import DialogPopup from "../../components/dialog/DialogPopup";
 
 import { endpointURL } from "../../util/EndpointURL";
@@ -18,6 +12,7 @@ import { endpointURL } from "../../util/EndpointURL";
 import "./SingleRestaurant.scss";
 import RestaurantImages from "../../components/restaurantDetail/restaurantImages/RestaurantImages";
 import RestaurantInfo from "../../components/restaurantDetail/restaurantInfo/RestaurantInfo";
+import EmptyList from "../../components/views/EmptyList";
 
 function SingleRestaurant() {
   let params = useParams();
@@ -30,23 +25,14 @@ function SingleRestaurant() {
   const [reservationData, setReservationData] = useState([]);
 
   const [open, setOpen] = useState(false);
-  const [openDialogue, setOpenDialogue] = useState(false);
   const [notify, setNotify] = useState("");
 
-  const handleClose = () => {
+  const alertClose = () => {
     setOpen(false);
   };
 
-  const handleToggle = () => {
+  const alertToggle = () => {
     setOpen(!open);
-  };
-
-  const handleDialogueOpen = () => {
-    setOpenDialogue(true);
-  };
-
-  const handleDialogueClose = () => {
-    setOpenDialogue(false);
   };
 
   const deleteRestaurant = () => {
@@ -63,12 +49,29 @@ function SingleRestaurant() {
       .then((response) => response.json())
       .then((data) => {
         setNotify("Restaurant Deleted. Redirecting to home page ...");
-        handleToggle();
-        handleDialogueClose();
+        alertToggle();
+
         setTimeout(function () {
-          handleClose();
+          alertClose();
           navigate("/");
         }, 2000);
+      });
+  };
+
+  const deleteReservation = (reservationId) => {
+    let deleteEndpoint = `${endpointURL}reservations/${reservationId}`;
+
+    let jsonObject = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    fetch(deleteEndpoint, jsonObject)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Deleted");
       });
   };
 
@@ -76,7 +79,6 @@ function SingleRestaurant() {
     fetch(getURL)
       .then((response) => response.json())
       .then((data) => {
-        console.log(restaurantData);
         setRestaurantData(data);
       });
   };
@@ -118,46 +120,37 @@ function SingleRestaurant() {
             restaurantId={restaurantId}
             getReservation={fetchReservations}
           />
-          <div>
-            <DialogPopup
-              restaurant={restaurantData}
-              setRestaurant={setRestaurantData}
-              getARestaurant={getARestaurant}
-              method="PATCH"
-              prompt="Edit"
-              dialogTitle="Edit Restaurant"
-            />
-          </div>
         </>
       )}
 
-      <Button
-        variant="outlined"
-        color="error"
-        startIcon={<DeleteIcon />}
-        onClick={handleDialogueOpen}>
-        Delete
-      </Button>
+      <div className="singleRestaurant_btn">
+        <DialogPopup
+          restaurant={restaurantData}
+          setRestaurant={setRestaurantData}
+          getARestaurant={getARestaurant}
+          method="PATCH"
+          prompt="Edit"
+          dialogTitle="Edit Restaurant"
+        />
 
-      <Dialog open={openDialogue} onClose={handleDialogueClose}>
-        <DialogTitle id="alert-dialog-title">{"Confirm Delete"}</DialogTitle>
-        <DialogActions>
-          <Button color="error" onClick={deleteRestaurant}>
-            Delete
-          </Button>
-          <Button onClick={handleDialogueClose}>Cancel</Button>
-        </DialogActions>
-      </Dialog>
+        <DialogDelete deleteHandler={deleteRestaurant} />
+      </div>
 
-      <Alertview
-        notify={notify.length > 0 && notify}
-        alertVariant="filled"
-        alertType="success"
-        handleClose={handleClose}
-        open={open}
-      />
+      <div className="singleRestautant_alert">
+        <Alertview
+          notify={notify.length > 0 && notify}
+          alertVariant="filled"
+          alertType="success"
+          handleClose={alertClose}
+          open={open}
+        />
+      </div>
 
       <h3>Current Reservations</h3>
+      {reservationData.length === 0 && (
+        <EmptyList searchTerm="No reservations yet for this restaurant" />
+      )}
+
       <CurrentReservationList allReservation={reservationData} />
     </div>
   );

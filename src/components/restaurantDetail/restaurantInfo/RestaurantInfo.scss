@@ -6,8 +6,65 @@
 
   &_card {
     max-width: 70%;
+
+    &_name {
+      font-size: 40px;
+      font-weight: 600;
+      border-bottom: 0.5px solid rgba(128, 128, 128, 0.505);
+    }
     > div {
       padding: 10px 0px;
+    }
+
+    &_stat {
+      display: flex;
+      justify-items: center;
+      gap: 20px;
+      margin: 15px 0px;
+
+      div:not(:last-child) {
+        border-right: 1px solid rgba(128, 128, 128, 0.505);
+        padding-right: 25px;
+      }
+
+      div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+
+    &_phone {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    &_description {
+      text-align: justify;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    &_hTitle {
+      font-size: 25px;
+      font-weight: 500;
+      border-bottom: 0.5px solid rgba(128, 128, 128, 0.505);
+    }
+
+    &_hours {
+      display: flex;
+      width: 40%;
+      align-items: center;
+      justify-content: space-between;
+
+      &_sun {
+        display: flex;
+        width: 40%;
+        align-items: center;
+        justify-content: space-between;
+        color: red;
+      }
     }
   }
 }

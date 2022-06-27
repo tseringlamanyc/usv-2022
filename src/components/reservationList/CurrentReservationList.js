@@ -1,5 +1,6 @@
 import React from "react";
 import ReservationCard from "../reservationCard/ReservationCard";
+import { endpointURL } from "../../util/EndpointURL";
 
 import "./CurrentReservationList.scss";
 

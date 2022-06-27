@@ -1,18 +1,18 @@
 import React from "react";
 
 import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
 import { change12To24 } from "../../util/24to12";
 
 import "./ReservationCard.scss";
+import DialogDelete from "../dialog/DialogDelete";
 
 function ReservationCard({ reservation }) {
   return (
     <div className="reservationCard">
       <div className="reservationCard_avatar">
-        <div className="reservationCard_avatar_letter">T</div>
+        <div className="reservationCard_avatar_letter">{`${reservation.firstName.charAt(0)}`}</div>
       </div>
       <div className="reservationCard_info">
         <div className="reservationCard_info_fullName">{`${reservation.firstName} ${reservation.lastName}`}</div>
@@ -28,9 +28,7 @@ function ReservationCard({ reservation }) {
           </IconButton>
         </div>
         <div>
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
+          <DialogDelete />
         </div>
       </div>
     </div>

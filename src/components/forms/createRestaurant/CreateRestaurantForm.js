@@ -153,6 +153,8 @@ function CreateRestaurantForm({
           handleClose();
         }, 2000);
       });
+
+    console.log(formValues);
   };
 
   return (
