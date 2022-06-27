@@ -16,7 +16,7 @@ import "./CreateReservationForm.scss";
 
 let guests = [...Array(10).keys()];
 
-function CreateReservationForm({ id, method = "POST" }) {
+function CreateReservationForm({ getReservation, setReservation, id, method = "POST" }) {
   const reservationObj = {
     firstName: "",
     lastName: "",
@@ -24,6 +24,7 @@ function CreateReservationForm({ id, method = "POST" }) {
     time: null,
     numGuests: "",
     restaurantId: id,
+    email: "",
   };
 
   const [formValues, setFormValues] = useState(reservationObj);
@@ -65,7 +66,7 @@ function CreateReservationForm({ id, method = "POST" }) {
   };
 
   const createNewReservation = () => {
-    let { firstName, lastName, phoneNumber, email, time, numGuests, restaurantId } = formValues;
+    let { firstName, lastName, phoneNumber, time, numGuests, restaurantId } = formValues;
 
     let jsonObject = {
       method: "POST",
@@ -76,7 +77,6 @@ function CreateReservationForm({ id, method = "POST" }) {
         firstName,
         lastName,
         phoneNumber,
-        email,
         time,
         numGuests,
         restaurantId,
@@ -93,6 +93,8 @@ function CreateReservationForm({ id, method = "POST" }) {
           setDateTime(null);
           setNotify("Reservation created");
           handleToggle();
+
+          getReservation();
 
           setTimeout(() => {
             handleClose();
@@ -166,10 +168,16 @@ function CreateReservationForm({ id, method = "POST" }) {
           />
         </LocalizationProvider>
 
-        <TextField name="email" label="email" placeholder="Email" value={formValues.email} />
+        <TextField
+          name="email"
+          label="email"
+          placeholder="Email"
+          value={formValues.email}
+          onChange={handleInputChange}
+        />
 
         <Button variant="contained" type="submit" onClick={createNewReservation}>
-          Submit
+          Book Now
         </Button>
 
         <Alertview

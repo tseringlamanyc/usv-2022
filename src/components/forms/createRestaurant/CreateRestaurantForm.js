@@ -147,10 +147,12 @@ function CreateRestaurantForm({
         }
       })
       .catch((err) => {
-        console.log({ err });
-      });
+        setNotify(`${err}`);
 
-    console.log(formValues);
+        setTimeout(() => {
+          handleClose();
+        }, 2000);
+      });
   };
 
   return (

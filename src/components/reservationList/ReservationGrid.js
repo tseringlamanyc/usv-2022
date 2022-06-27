@@ -92,14 +92,14 @@ function ReservationGrid({ allRestaurants }) {
       {Object.keys(allRestaurants).length > 0 && (
         <Box
           sx={{
-            height: 371,
+            height: 500,
             width: "100%",
             "& .super-app-theme--header": {
               backgroundColor: "gray",
               color: "white",
             },
           }}>
-          <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} />
+          <DataGrid rows={rows} columns={columns} pageSize={7} rowsPerPageOptions={[5]} />
         </Box>
       )}
     </div>

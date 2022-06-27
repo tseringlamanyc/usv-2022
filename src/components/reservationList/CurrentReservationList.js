@@ -1,10 +1,14 @@
 import React from "react";
 import ReservationCard from "../reservationCard/ReservationCard";
 
-function CurrentReservationList() {
+import "./CurrentReservationList.scss";
+
+function CurrentReservationList({ allReservation }) {
   return (
-    <div>
-      <ReservationCard />
+    <div className="reservationList">
+      {allReservation.map((reservation, index) => {
+        return <ReservationCard reservation={reservation} key={index} />;
+      })}
     </div>
   );
 }

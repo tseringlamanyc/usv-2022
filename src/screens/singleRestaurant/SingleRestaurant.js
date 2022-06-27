@@ -1,27 +1,33 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
+
 import Alertview from "../../components/alert/Alertview";
-import CreateReservationForm from "../../components/forms/createReservation/CreateReservationForm";
-import { endpointURL } from "../../util/EndpointURL";
-import "./SingleRestaurant.scss";
 import Navbar from "../../components/navBar/NavBar";
 import CurrentReservationList from "../../components/reservationList/CurrentReservationList";
 import DialogPopup from "../../components/dialog/DialogPopup";
 
+import { endpointURL } from "../../util/EndpointURL";
+
+import "./SingleRestaurant.scss";
+import RestaurantImages from "../../components/restaurantDetail/restaurantImages/RestaurantImages";
+import RestaurantInfo from "../../components/restaurantDetail/restaurantInfo/RestaurantInfo";
+
 function SingleRestaurant() {
   let params = useParams();
   const restaurantId = params.id;
+  let navigate = useNavigate();
 
   let getURL = `${endpointURL}restaurants/${restaurantId}`;
 
   const [restaurantData, setRestaurantData] = useState({});
-  let navigate = useNavigate();
+  const [reservationData, setReservationData] = useState([]);
 
   const [open, setOpen] = useState(false);
   const [openDialogue, setOpenDialogue] = useState(false);
@@ -75,33 +81,51 @@ function SingleRestaurant() {
       });
   };
 
+  const fetchReservations = async () => {
+    try {
+      let url = `${endpointURL}reservations`;
+      const res = await fetch(url);
+
+      if (!res.ok) {
+        throw Error(`Could not fetch data from ${url}`);
+      }
+
+      const json = await res.json();
+
+      const filteredReservation = json.reservations.filter((ele) => {
+        return ele.restaurantId === restaurantId;
+      });
+
+      setReservationData(filteredReservation);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     getARestaurant();
+    fetchReservations();
   }, []);
 
   return (
     <div className="singleRestaurant">
       <Navbar />
+      <RestaurantImages />
       {Object.keys(restaurantData).length > 0 && (
         <>
-          <div>{restaurantData.name}</div>
-          <div>{restaurantData.description}</div>
-          <div>{restaurantData.id}</div>
-          <div>{restaurantData.openingTime}</div>
+          <RestaurantInfo
+            restaurant={restaurantData}
+            restaurantId={restaurantId}
+            getReservation={fetchReservations}
+          />
           <div>
-            {/* <FormModal
-              restaurant={restaurantData}
-              setRestaurant={setRestaurantData}
-              getARestaurant={getARestaurant}
-              method="PATCH"
-              prompt="Edit"
-            /> */}
             <DialogPopup
               restaurant={restaurantData}
               setRestaurant={setRestaurantData}
               getARestaurant={getARestaurant}
               method="PATCH"
               prompt="Edit"
+              dialogTitle="Edit Restaurant"
             />
           </div>
         </>
@@ -133,11 +157,8 @@ function SingleRestaurant() {
         open={open}
       />
 
-      <h3>Make Reservation</h3>
-      <CreateReservationForm id={restaurantId} method="POST" />
-
       <h3>Current Reservations</h3>
-      <CurrentReservationList />
+      <CurrentReservationList allReservation={reservationData} />
     </div>
   );
 }

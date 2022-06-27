@@ -45,6 +45,7 @@ function DialogPopup({
             closeDialog={handleClose}
           />
         </DialogContent>
+
         <DialogActions>
           <Button>{actionPrompt}</Button>
           <Button onClick={handleClose}>Cancel</Button>

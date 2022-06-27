@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import { TextField } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 
 import "./SearchBar.scss";
@@ -12,6 +12,7 @@ function SearchBar({
   cuisineHandler,
   priceHandler,
   serviceHandler,
+  resetFields,
 }) {
   function getValues(obj, field) {
     let arrRes = obj;
@@ -68,6 +69,8 @@ function SearchBar({
             </MenuItem>
           ))}
         </TextField>
+
+        <Button onClick={resetFields}>Reset</Button>
       </div>
     </div>
   );

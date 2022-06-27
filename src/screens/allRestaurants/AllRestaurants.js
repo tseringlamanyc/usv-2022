@@ -18,8 +18,8 @@ function AllRestaurants() {
   const [restaurantCuisine, setRestaurantCuisine] = useState("");
   const [restaurantPrice, setRestaurantPrice] = useState("");
   const [restaurantService, setRestaurantSerivce] = useState("");
-
   const [searchTerm, setSearchTerm] = useState("");
+
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -84,6 +84,14 @@ function AllRestaurants() {
     return filterRestaurants;
   };
 
+  const resetFields = () => {
+    setSearchTerm("");
+    setRestaurantLocation("");
+    setRestaurantCuisine("");
+    setRestaurantPrice("");
+    setRestaurantSerivce("");
+  };
+
   const fetchRestaurants = async () => {
     try {
       let url = `${endpointURL}restaurants`;
@@ -126,6 +134,7 @@ function AllRestaurants() {
         cuisineHandler={cuisineHandler}
         priceHandler={priceHandler}
         serviceHandler={serviceHandler}
+        resetFields={resetFields}
       />
 
       <DialogPopup
@@ -138,13 +147,11 @@ function AllRestaurants() {
 
       {isLoading && <LoadingView />}
 
-      {!isLoading && searchTerm.length !== 0 && filteredRestaurants.length === 0 && (
-        <EmptyList searchTerm={searchTerm} />
+      {!isLoading && filteredRestaurants.length === 0 && (
+        <EmptyList searchTerm="No restaurant found" />
       )}
 
-      {filteredRestaurants.length > 0 && (
-        <RestaurantList searchTerm={searchTerm} restaurants={filteredRestaurants} />
-      )}
+      {filteredRestaurants.length > 0 && <RestaurantList restaurants={filteredRestaurants} />}
     </div>
   );
 }
