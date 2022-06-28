@@ -36,6 +36,8 @@ function CurrentReservationList({ aReservation, fetchReservations }) {
         setTimeout(() => {
           alertClose();
         }, 2000);
+
+        fetchReservations();
       });
   };
 
