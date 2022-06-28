@@ -12,7 +12,6 @@ import { endpointURL } from "../../util/EndpointURL";
 import "./SingleRestaurant.scss";
 import RestaurantImages from "../../components/restaurantDetail/restaurantImages/RestaurantImages";
 import RestaurantInfo from "../../components/restaurantDetail/restaurantInfo/RestaurantInfo";
-import EmptyList from "../../components/views/EmptyList";
 
 function SingleRestaurant() {
   let params = useParams();
@@ -55,23 +54,6 @@ function SingleRestaurant() {
           alertClose();
           navigate("/");
         }, 2000);
-      });
-  };
-
-  const deleteReservation = (reservationId) => {
-    let deleteEndpoint = `${endpointURL}reservations/${reservationId}`;
-
-    let jsonObject = {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    fetch(deleteEndpoint, jsonObject)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Deleted");
       });
   };
 
@@ -147,11 +129,11 @@ function SingleRestaurant() {
       </div>
 
       <h3>Current Reservations</h3>
-      {reservationData.length === 0 && (
-        <EmptyList searchTerm="No reservations yet for this restaurant" />
-      )}
 
-      <CurrentReservationList allReservation={reservationData} />
+      <CurrentReservationList
+        aReservation={reservationData}
+        fetchReservations={fetchReservations}
+      />
     </div>
   );
 }

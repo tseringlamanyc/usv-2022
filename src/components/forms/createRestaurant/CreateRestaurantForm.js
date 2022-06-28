@@ -65,11 +65,19 @@ function CreateRestaurantForm({
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
+    let { name, value } = e.target;
+
+    if (value.length === 0) {
+      value = null;
+      setFormValues({
+        ...formValues,
+      });
+    } else {
+      setFormValues({
+        ...formValues,
+        [name]: value,
+      });
+    }
   };
 
   const handleOpenTimeChange = (e) => {
@@ -91,7 +99,17 @@ function CreateRestaurantForm({
   };
 
   const createNewRestaurant = () => {
-    let { name, description, price, cuisine, location, openingTime, closingTime } = formValues;
+    let {
+      name,
+      description,
+      price,
+      cuisine,
+      location,
+      openingTime,
+      closingTime,
+      phoneNumber,
+      diningRestriction,
+    } = formValues;
 
     let jsonObject = {
       method: method,
@@ -106,6 +124,8 @@ function CreateRestaurantForm({
         location,
         openingTime,
         closingTime,
+        phoneNumber,
+        diningRestriction,
       }),
     };
 

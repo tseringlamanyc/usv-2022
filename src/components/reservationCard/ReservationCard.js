@@ -8,7 +8,7 @@ import { change12To24 } from "../../util/24to12";
 import "./ReservationCard.scss";
 import DialogDelete from "../dialog/DialogDelete";
 
-function ReservationCard({ reservation }) {
+function ReservationCard({ reservation, deleteReservation, editReservation }) {
   return (
     <div className="reservationCard">
       <div className="reservationCard_avatar">
@@ -28,7 +28,7 @@ function ReservationCard({ reservation }) {
           </IconButton>
         </div>
         <div>
-          <DialogDelete />
+          <DialogDelete deleteHandler={deleteReservation} reservationId={reservation.id} />
         </div>
       </div>
     </div>
