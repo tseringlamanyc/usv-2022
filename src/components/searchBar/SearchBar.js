@@ -38,47 +38,49 @@ function SearchBar({
       <div className="bar_search">
         <SearchIcon className="icon" />
         <input placeholder="Search" onChange={searchHandler}></input>
+        <DialogPopup
+          getAllRestaurants={fetchRestaurants}
+          variant={"outlined"}
+          prompt="Add Restaurant"
+          method="POST"
+          dialogTitle="Create Restaurant"
+        />
       </div>
 
       <div className="bar_filters">
-        <TextField select helperText="Location" onChange={locationHandler}>
-          {allLocations.map((location, index) => (
-            <MenuItem key={index} value={location}>
-              {location}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField select helperText="Cuisine" onChange={cuisineHandler}>
+        <div className="bar_filters_location">
+          <TextField select helperText="Location" onChange={locationHandler} style={{ width: 180 }}>
+            {allLocations.map((location, index) => (
+              <MenuItem key={index} value={location}>
+                {location}
+              </MenuItem>
+            ))}
+          </TextField>
+        </div>
+
+        <TextField select helperText="Cuisine" onChange={cuisineHandler} style={{ width: 150 }}>
           {allCuisines.map((cuisine, index) => (
             <MenuItem key={index} value={cuisine}>
               {cuisine}
             </MenuItem>
           ))}
         </TextField>
-        <TextField select helperText="Price" onChange={priceHandler}>
+
+        <TextField select helperText="Price" onChange={priceHandler} style={{ width: 90 }}>
           {allPrices.map((price, index) => (
             <MenuItem key={index} value={price}>
               {price}
             </MenuItem>
           ))}
         </TextField>
-        <TextField select helperText="Service" onChange={serviceHandler}>
+
+        <TextField select helperText="Service" onChange={serviceHandler} style={{ width: 200 }}>
           {allRestrictions.map((service, index) => (
             <MenuItem key={index} value={service}>
               {service}
             </MenuItem>
           ))}
         </TextField>
-        <div>
-          <Button onClick={resetFields}>Reset</Button>
-          <DialogPopup
-            getAllRestaurants={fetchRestaurants}
-            variant={"outlined"}
-            prompt="Add Restaurant"
-            method="POST"
-            dialogTitle="Create Restaurant"
-          />
-        </div>
       </div>
     </div>
   );

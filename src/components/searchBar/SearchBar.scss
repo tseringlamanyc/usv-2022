@@ -1,9 +1,9 @@
 .bar {
   display: flex;
   flex-wrap: wrap;
-  border-bottom: 1px solid rgb(199, 193, 193);
   justify-content: space-between;
   padding: 20px 10px 0px 10px;
+  border-bottom: 1px solid rgb(199, 193, 193);
 
   &_search {
     margin: auto 0;
@@ -26,5 +26,21 @@
     display: flex;
     padding: 15px;
     gap: 30px;
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  .bar {
+    padding: 10px 10px;
+
+    &_search {
+      svg {
+        margin: auto;
+      }
+    }
+    &_filters {
+      display: none;
+      padding-top: 5px;
+    }
   }
 }

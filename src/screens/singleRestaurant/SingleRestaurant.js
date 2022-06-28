@@ -128,7 +128,7 @@ function SingleRestaurant() {
         />
       </div>
 
-      <h3>Current Reservations</h3>
+      <div className="singleRestaurant_resName">Current Reservations</div>
 
       <CurrentReservationList
         aReservation={reservationData}

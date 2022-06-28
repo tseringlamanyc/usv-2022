@@ -5,7 +5,6 @@ import RestaurantList from "../../components/restaurantList/RestaurantList.js";
 import SearchBar from "../../components/searchBar/SearchBar.js";
 import LoadingView from "../../components/views/LoadingView.js";
 import EmptyList from "../../components/views/EmptyList.js";
-import DialogPopup from "../../components/dialog/DialogPopup.js";
 import Navbar from "../../components/navBar/NavBar.js";
 import { endpointURL } from "../../util/EndpointURL";
 
@@ -84,14 +83,6 @@ function AllRestaurants() {
     return filterRestaurants;
   };
 
-  const resetFields = () => {
-    setSearchTerm("");
-    setRestaurantLocation("");
-    setRestaurantCuisine("");
-    setRestaurantPrice("");
-    setRestaurantSerivce("");
-  };
-
   const fetchRestaurants = async () => {
     try {
       let url = `${endpointURL}restaurants`;
@@ -134,7 +125,6 @@ function AllRestaurants() {
         cuisineHandler={cuisineHandler}
         priceHandler={priceHandler}
         serviceHandler={serviceHandler}
-        resetFields={resetFields}
         fetchRestaurants={fetchRestaurants}
       />
 

@@ -67,17 +67,10 @@ function CreateRestaurantForm({
   const handleInputChange = (e) => {
     let { name, value } = e.target;
 
-    if (value.length === 0) {
-      value = null;
-      setFormValues({
-        ...formValues,
-      });
-    } else {
-      setFormValues({
-        ...formValues,
-        [name]: value,
-      });
-    }
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
   };
 
   const handleOpenTimeChange = (e) => {
@@ -99,17 +92,7 @@ function CreateRestaurantForm({
   };
 
   const createNewRestaurant = () => {
-    let {
-      name,
-      description,
-      price,
-      cuisine,
-      location,
-      openingTime,
-      closingTime,
-      phoneNumber,
-      diningRestriction,
-    } = formValues;
+    let { name, description, price, cuisine, location, openingTime, closingTime } = formValues;
 
     let jsonObject = {
       method: method,
@@ -124,8 +107,6 @@ function CreateRestaurantForm({
         location,
         openingTime,
         closingTime,
-        phoneNumber,
-        diningRestriction,
       }),
     };
 
@@ -255,8 +236,7 @@ function CreateRestaurantForm({
 
         {/* OPTIONALS */}
         <TextField
-          type="tel"
-          mask="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          inputProps={{ inputMode: "numeric", pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}" }}
           name="phoneNumber"
           placeholder="Phone number"
           value={formValues.phoneNumber}

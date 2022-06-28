@@ -7,8 +7,9 @@ import { change12To24 } from "../../util/24to12";
 
 import "./ReservationCard.scss";
 import DialogDelete from "../dialog/DialogDelete";
+import DialogReservation from "../dialog/DialogReservation";
 
-function ReservationCard({ reservation, deleteReservation, editReservation }) {
+function ReservationCard({ reservation, deleteReservation }) {
   return (
     <div className="reservationCard">
       <div className="reservationCard_avatar">
@@ -24,7 +25,12 @@ function ReservationCard({ reservation, deleteReservation, editReservation }) {
       <div className="reservationCard_btns">
         <div>
           <IconButton>
-            <ModeEditIcon />
+            <DialogReservation
+              method="PATCH"
+              reservation={reservation}
+              id={reservation.id}
+              setReservation={reservation}
+            />
           </IconButton>
         </div>
         <div>

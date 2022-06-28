@@ -110,8 +110,9 @@ function CreateReservationForm({ getReservation, setReservation, id, method = "P
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} className="reservationForm">
+    <div className="reservationForm">
+      <div className="reservationForm_title">Book Reservation</div>
+      <form onSubmit={handleSubmit} className="reservationForm_form">
         <TextField
           required
           id="outline-required"
