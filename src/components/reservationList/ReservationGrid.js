@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import { endpointURL } from "../../util/EndpointURL";
 import { change12To24 } from "../../util/24to12";
 import "./ReservationGrid.scss";
+import { addDashes } from "../../util/dashPhoneNumber";
 
 function ReservationGrid({ allRestaurants }) {
   const [reservations, setReservations] = useState([]);
@@ -26,6 +27,7 @@ function ReservationGrid({ allRestaurants }) {
       headerName: "Phone number",
       headerClassName: "super-app-theme--header",
       width: 200,
+      valueGetter: (params) => `${addDashes(params.row.phoneNumber)}`,
     },
     {
       field: "restaurantId",

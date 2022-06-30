@@ -16,7 +16,14 @@ import "./CreateReservationForm.scss";
 
 let guests = [...Array(10).keys()];
 
-function CreateReservationForm({ reservation, getReservation, id, method = "POST", closeDialog }) {
+function CreateReservationForm({
+  reservation,
+  id,
+  method = "POST",
+  closeDialog,
+  fetchReservations,
+}) {
+  //
   const reservationObj = {
     firstName: "",
     lastName: "",
@@ -25,10 +32,6 @@ function CreateReservationForm({ reservation, getReservation, id, method = "POST
     numGuests: "",
     email: "",
   };
-
-  function refreshPage() {
-    window.location.reload();
-  }
 
   const [formValues, setFormValues] = useState(reservation || reservationObj);
   const [dateTime, setDateTime] = useState(reservationObj.time || null);
@@ -114,7 +117,7 @@ function CreateReservationForm({ reservation, getReservation, id, method = "POST
           setNotify("Reservation created");
           handleToggle();
 
-          getReservation();
+          fetchReservations();
 
           setTimeout(() => {
             handleClose();
@@ -127,7 +130,7 @@ function CreateReservationForm({ reservation, getReservation, id, method = "POST
           setTimeout(() => {
             handleClose();
             closeDialog();
-            refreshPage();
+            fetchReservations();
           }, 2000);
         }
       })

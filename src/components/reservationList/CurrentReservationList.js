@@ -4,10 +4,12 @@ import Alertview from "../alert/Alertview";
 import { endpointURL } from "../../util/EndpointURL";
 
 import "./CurrentReservationList.scss";
+import { ar } from "date-fns/locale";
 
 function CurrentReservationList({ aReservation, fetchReservations }) {
   const [open, setOpen] = useState(false);
   const [notify, setNotify] = useState("");
+  const [reservations, setReservations] = useState([]);
 
   const alertClose = () => {
     setOpen(false);
@@ -53,6 +55,7 @@ function CurrentReservationList({ aReservation, fetchReservations }) {
             reservation={reservation}
             deleteReservation={deleteReservation}
             key={index}
+            fetchReservations={fetchReservations}
           />
         );
       })}

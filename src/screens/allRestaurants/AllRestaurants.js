@@ -103,7 +103,7 @@ function AllRestaurants() {
   };
 
   useEffect(() => {
-    // fetchRestaurants();
+    fetchRestaurants();
   }, []);
 
   useEffect(() => {

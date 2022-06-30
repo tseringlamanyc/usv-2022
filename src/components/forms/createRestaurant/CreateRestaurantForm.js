@@ -66,7 +66,6 @@ function CreateRestaurantForm({
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
-
     setFormValues({
       ...formValues,
       [name]: value,
@@ -114,12 +113,24 @@ function CreateRestaurantForm({
       closingTime,
     };
 
-    if (formValues.phoneNumber.length) {
+    if (formValues.phoneNumber) {
       restaurantData.phoneNumber = phoneNumber;
     }
 
     if (formValues.diningRestriction) {
       restaurantData.diningRestriction = diningRestriction;
+    }
+
+    if (name.charAt(name.length - 1) === " ") {
+      restaurantData.name = name.trim();
+    }
+
+    if (cuisine.charAt(cuisine.length - 1) === " ") {
+      restaurantData.cuisine = cuisine.trim();
+    }
+
+    if (location.charAt(location.length - 1) === " ") {
+      restaurantData.location = location.trim();
     }
 
     let jsonObject = {
@@ -173,6 +184,8 @@ function CreateRestaurantForm({
           handleClose();
         }, 2000);
       });
+
+    console.log(restaurantData);
   };
 
   return (

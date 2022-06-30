@@ -9,7 +9,7 @@ import CreateReservationForm from "../forms/createReservation/CreateReservationF
 import { DialogTitle } from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
-function DialogReservation({ method, reservation, getReservation, id }) {
+function DialogReservation({ method, reservation, id, fetchReservations }) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -32,10 +32,10 @@ function DialogReservation({ method, reservation, getReservation, id }) {
         <DialogContent>
           <CreateReservationForm
             method={method}
-            getReservation={getReservation}
             reservation={reservation}
             id={id}
             closeDialog={handleClose}
+            fetchReservations={fetchReservations}
           />
         </DialogContent>
 

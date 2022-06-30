@@ -113,7 +113,7 @@ function SingleRestaurant() {
           <RestaurantInfo
             restaurant={restaurantData}
             restaurantId={restaurantId}
-            getReservation={fetchReservations}
+            fetchReservations={fetchReservations}
           />
         </>
       )}
@@ -131,7 +131,6 @@ function SingleRestaurant() {
       <div className="singleRestaurant_resName">Current Reservations</div>
 
       {reservationData.length === 0 && <EmptyList searchTerm="No reservations yet" />}
-
       <CurrentReservationList
         aReservation={reservationData}
         fetchReservations={fetchReservations}

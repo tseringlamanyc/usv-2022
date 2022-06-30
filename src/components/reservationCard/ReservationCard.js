@@ -6,7 +6,7 @@ import "./ReservationCard.scss";
 import DialogDelete from "../dialog/DialogDelete";
 import DialogReservation from "../dialog/DialogReservation";
 
-function ReservationCard({ reservation, deleteReservation }) {
+function ReservationCard({ reservation, deleteReservation, fetchReservations }) {
   return (
     <div className="reservationCard">
       <div className="reservationCard_avatar">
@@ -25,7 +25,12 @@ function ReservationCard({ reservation, deleteReservation }) {
 
       <div className="reservationCard_btns">
         <div>
-          <DialogReservation reservation={reservation} id={reservation.id} method="PATCH" />
+          <DialogReservation
+            reservation={reservation}
+            id={reservation.id}
+            method="PATCH"
+            fetchReservations={fetchReservations}
+          />
         </div>
 
         <div>

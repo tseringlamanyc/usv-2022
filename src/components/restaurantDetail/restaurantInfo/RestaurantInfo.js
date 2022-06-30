@@ -9,7 +9,7 @@ import { change12To24 } from "../../../util/24to12";
 import { addDashes } from "../../../util/dashPhoneNumber";
 import "./RestaurantInfo.scss";
 
-function RestaurantInfo({ restaurant, restaurantId, getReservation }) {
+function RestaurantInfo({ restaurant, restaurantId, fetchReservations }) {
   return (
     <div className="restaurantInfo">
       <div className="restaurantInfo_card">
@@ -88,7 +88,11 @@ function RestaurantInfo({ restaurant, restaurantId, getReservation }) {
       </div>
 
       <div className="restaurantInfo_form">
-        <CreateReservationForm getReservation={getReservation} id={restaurantId} method="POST" />
+        <CreateReservationForm
+          id={restaurantId}
+          method="POST"
+          fetchReservations={fetchReservations}
+        />
       </div>
     </div>
   );
