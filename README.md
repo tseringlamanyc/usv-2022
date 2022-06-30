@@ -45,6 +45,7 @@ This is a web application that allows the users to Create, Read, Update and Dele
 
 ## Challenges encountered
 - Manipulating date object in order to make it more user friendly
+- The following code snippet below was used to render a more human readable date to the user
 
 ```js
 const change12To24 = (str) => {
