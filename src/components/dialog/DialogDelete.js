@@ -29,8 +29,8 @@ function DialogDelete({ deleteHandler, reservationId }) {
 
   return (
     <div>
-      <Button varaint="outlined" color="error" onClick={handleClickOpen}>
-        Delete
+      <Button variant="text" color="error" onClick={handleClickOpen}>
+        <DeleteIcon />
       </Button>
 
       <Dialog open={open} onClose={handleClose}>

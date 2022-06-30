@@ -7,8 +7,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import CreateReservationForm from "../forms/createReservation/CreateReservationForm";
 import { DialogTitle } from "@mui/material";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
-function DialogReservation({ method, setReservation, reservation, getReservation, id }) {
+function DialogReservation({ method, reservation, getReservation, id }) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -19,12 +20,10 @@ function DialogReservation({ method, setReservation, reservation, getReservation
     setOpen(false);
   };
 
-  console.log(reservation);
-
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Edit
+      <Button onClick={handleClickOpen}>
+        <ModeEditIcon />
       </Button>
 
       <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth={true}>
@@ -35,8 +34,8 @@ function DialogReservation({ method, setReservation, reservation, getReservation
             method={method}
             getReservation={getReservation}
             reservation={reservation}
-            setReservation={setReservation}
             id={id}
+            closeDialog={handleClose}
           />
         </DialogContent>
 

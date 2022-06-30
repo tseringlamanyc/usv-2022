@@ -12,6 +12,7 @@ import { endpointURL } from "../../util/EndpointURL";
 import "./SingleRestaurant.scss";
 import RestaurantImages from "../../components/restaurantDetail/restaurantImages/RestaurantImages";
 import RestaurantInfo from "../../components/restaurantDetail/restaurantInfo/RestaurantInfo";
+import EmptyList from "../../components/views/EmptyList";
 
 function SingleRestaurant() {
   let params = useParams();
@@ -34,7 +35,7 @@ function SingleRestaurant() {
     setOpen(!open);
   };
 
-  const deleteRestaurant = () => {
+  const deleteRestaurant = async () => {
     let deleteEndpoint = `${endpointURL}restaurants/${restaurantId}`;
 
     let jsonObject = {
@@ -95,15 +96,6 @@ function SingleRestaurant() {
     <div className="singleRestaurant">
       <Navbar />
       <RestaurantImages />
-      {Object.keys(restaurantData).length > 0 && (
-        <>
-          <RestaurantInfo
-            restaurant={restaurantData}
-            restaurantId={restaurantId}
-            getReservation={fetchReservations}
-          />
-        </>
-      )}
 
       <div className="singleRestaurant_btn">
         <DialogPopup
@@ -118,6 +110,16 @@ function SingleRestaurant() {
         <DialogDelete deleteHandler={deleteRestaurant} />
       </div>
 
+      {Object.keys(restaurantData).length > 0 && (
+        <>
+          <RestaurantInfo
+            restaurant={restaurantData}
+            restaurantId={restaurantId}
+            getReservation={fetchReservations}
+          />
+        </>
+      )}
+
       <div className="singleRestautant_alert">
         <Alertview
           notify={notify.length > 0 && notify}
@@ -129,6 +131,8 @@ function SingleRestaurant() {
       </div>
 
       <div className="singleRestaurant_resName">Current Reservations</div>
+
+      {reservationData.length === 0 && <EmptyList searchTerm="No reservations yet" />}
 
       <CurrentReservationList
         aReservation={reservationData}

@@ -16,13 +16,7 @@ import "./CreateReservationForm.scss";
 
 let guests = [...Array(10).keys()];
 
-function CreateReservationForm({
-  reservation,
-  getReservation,
-  setReservation,
-  id,
-  method = "POST",
-}) {
+function CreateReservationForm({ reservation, getReservation, id, method = "POST", closeDialog }) {
   const reservationObj = {
     firstName: "",
     lastName: "",
@@ -31,6 +25,10 @@ function CreateReservationForm({
     numGuests: "",
     email: "",
   };
+
+  function refreshPage() {
+    window.location.reload();
+  }
 
   const [formValues, setFormValues] = useState(reservation || reservationObj);
   const [dateTime, setDateTime] = useState(reservationObj.time || null);
@@ -70,8 +68,10 @@ function CreateReservationForm({
     event.preventDefault();
   };
 
+  let isMandatory = true;
+
   const createNewReservation = () => {
-    let { firstName, lastName, phoneNumber, time, numGuests } = formValues;
+    let { firstName, lastName, phoneNumber, time, numGuests, email } = formValues;
 
     let reservationData = {
       firstName,
@@ -83,10 +83,11 @@ function CreateReservationForm({
 
     if (method === "POST") {
       reservationData.restaurantId = id;
+      isMandatory = true;
     }
 
-    if (!formValues.email) {
-      reservationData.email = formValues.email;
+    if (formValues.email) {
+      reservationData.email = email;
     }
 
     let jsonObject = {
@@ -101,7 +102,7 @@ function CreateReservationForm({
 
     if (method === "PATCH") {
       postURL += `/${reservation.id}`;
-      console.log(postURL);
+      isMandatory = false;
     }
 
     fetch(postURL, jsonObject)
@@ -117,40 +118,49 @@ function CreateReservationForm({
 
           setTimeout(() => {
             handleClose();
+            closeDialog();
           }, 2000);
         } else {
           setNotify("Reservation updated");
           handleToggle();
 
-          console.log(data);
+          setTimeout(() => {
+            handleClose();
+            closeDialog();
+            refreshPage();
+          }, 2000);
         }
       })
       .catch((err) => {
-        console.log(err);
-      });
+        setNotify(err);
+        handleToggle();
 
-    console.log(formValues);
+        setTimeout(() => {
+          handleClose();
+          closeDialog();
+        }, 2000);
+      });
   };
 
   return (
     <div className="reservationForm">
-      <div className="reservationForm_title">Book Reservation</div>
+      <div className="reservationForm_title">{method === "POST" ? "Book Reservation" : ""}</div>
       <form onSubmit={handleSubmit} className="reservationForm_form">
         <TextField
-          required
+          required={isMandatory}
           id="outline-required"
           name="firstName"
-          label="First Name"
+          label="First name"
           placeholder="First Name"
           value={formValues.firstName}
           onChange={handleInputChange}
         />
 
         <TextField
-          required
+          required={isMandatory}
           id="outline-required"
           name="lastName"
-          label="Last Name"
+          label="Last name"
           placeholder="Last Name"
           value={formValues.lastName}
           onChange={handleInputChange}
@@ -158,8 +168,8 @@ function CreateReservationForm({
 
         <TextField
           type="tel"
-          required
-          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          required={isMandatory}
+          inputProps={{ inputMode: "numeric", pattern: "[0-9]{3}[0-9]{3}[0-9]{4}" }}
           name="phoneNumber"
           placeholder="Phone number"
           value={formValues.phoneNumber}
@@ -167,7 +177,7 @@ function CreateReservationForm({
         />
 
         <TextField
-          required
+          required={isMandatory}
           select
           label=""
           helperText="Guests"
@@ -201,7 +211,7 @@ function CreateReservationForm({
         />
 
         <Button variant="contained" type="submit" onClick={createNewReservation}>
-          Book Now
+          {method === "POST" ? "Book Now" : "Update"}
         </Button>
 
         <Alertview

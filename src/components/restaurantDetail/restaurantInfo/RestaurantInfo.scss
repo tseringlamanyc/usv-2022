@@ -1,7 +1,8 @@
 .restaurantInfo {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
+  margin: 10px 0px;
 
   &_card {
     max-width: 45vw;
@@ -62,6 +63,7 @@
         align-items: center;
         justify-content: space-between;
         color: red;
+        margin-bottom: 15px;
       }
     }
   }
@@ -98,6 +100,7 @@
         &_sun {
           width: auto;
           border-bottom: 0.5px solid rgba(128, 128, 128, 0.505);
+          margin-bottom: 5px;
         }
       }
     }

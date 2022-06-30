@@ -255,7 +255,7 @@ function CreateRestaurantForm({
 
         {/* OPTIONALS */}
         <TextField
-          inputProps={{ inputMode: "numeric", pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}" }}
+          inputProps={{ inputMode: "numeric", pattern: "[0-9]{3}[0-9]{3}[0-9]{4}" }}
           name="phoneNumber"
           placeholder="Phone number"
           value={formValues.phoneNumber}
@@ -277,7 +277,7 @@ function CreateRestaurantForm({
         </TextField>
 
         <Button variant="contained" type="submit" onClick={createNewRestaurant}>
-          Submit
+          {method === "POST" ? "Add" : "Update"}
         </Button>
 
         <Alertview

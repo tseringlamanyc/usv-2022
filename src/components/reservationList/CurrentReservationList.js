@@ -29,7 +29,7 @@ function CurrentReservationList({ aReservation, fetchReservations }) {
 
     fetch(deleteEndpoint, jsonObject)
       .then((response) => response.json())
-      .then((data) => {
+      .then((_) => {
         setNotify("Reservation Deleted");
         alertToggle();
 
