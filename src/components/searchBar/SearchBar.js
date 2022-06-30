@@ -1,9 +1,12 @@
 import React from "react";
+
 import SearchIcon from "@mui/icons-material/Search";
-import { TextField, Button } from "@mui/material";
+import { TextField } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
-import "./SearchBar.scss";
+
 import DialogPopup from "../dialog/DialogPopup";
+
+import "./SearchBar.scss";
 
 function SearchBar({
   searchHandler,

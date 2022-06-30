@@ -1,12 +1,14 @@
 import React from "react";
+
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import PhoneIcon from "@mui/icons-material/Phone";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
+
 import CreateReservationForm from "../../forms/createReservation/CreateReservationForm";
 import { change12To24 } from "../../../util/24to12";
 import { addDashes } from "../../../util/dashPhoneNumber";
+
 import "./RestaurantInfo.scss";
 
 function RestaurantInfo({ restaurant, restaurantId, fetchReservations }) {

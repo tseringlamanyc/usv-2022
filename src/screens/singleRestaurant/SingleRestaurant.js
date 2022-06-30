@@ -1,18 +1,18 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
 import Alertview from "../../components/alert/Alertview";
 import Navbar from "../../components/navBar/NavBar";
 import CurrentReservationList from "../../components/reservationList/CurrentReservationList";
 import DialogDelete from "../../components/dialog/DialogDelete";
 import DialogPopup from "../../components/dialog/DialogPopup";
-
 import { endpointURL } from "../../util/EndpointURL";
-
-import "./SingleRestaurant.scss";
 import RestaurantImages from "../../components/restaurantDetail/restaurantImages/RestaurantImages";
 import RestaurantInfo from "../../components/restaurantDetail/restaurantInfo/RestaurantInfo";
 import EmptyList from "../../components/views/EmptyList";
+
+import "./SingleRestaurant.scss";
 
 function SingleRestaurant() {
   let params = useParams();

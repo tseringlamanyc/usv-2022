@@ -1,8 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
+
 import Navbar from "../../components/navBar/NavBar";
 import ReservationGrid from "../../components/reservationList/ReservationGrid";
-
 import { endpointURL } from "../../util/EndpointURL";
 
 function AllReservations() {

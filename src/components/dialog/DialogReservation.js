@@ -1,13 +1,14 @@
 import React from "react";
-
 import { useState } from "react";
+
 import Dialog from "@mui/material/Dialog";
 import { Button } from "@mui/material";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import CreateReservationForm from "../forms/createReservation/CreateReservationForm";
 import { DialogTitle } from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
+
+import CreateReservationForm from "../forms/createReservation/CreateReservationForm";
 
 function DialogReservation({ method, reservation, id, fetchReservations }) {
   const [open, setOpen] = useState(false);

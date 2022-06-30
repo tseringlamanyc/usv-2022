@@ -2,9 +2,10 @@ import React from "react";
 
 import { change12To24 } from "../../util/24to12";
 
-import "./ReservationCard.scss";
 import DialogDelete from "../dialog/DialogDelete";
 import DialogReservation from "../dialog/DialogReservation";
+
+import "./ReservationCard.scss";
 
 function ReservationCard({ reservation, deleteReservation, fetchReservations }) {
   return (

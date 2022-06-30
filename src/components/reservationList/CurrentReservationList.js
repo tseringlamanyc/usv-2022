@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+
 import ReservationCard from "../reservationCard/ReservationCard";
 import Alertview from "../alert/Alertview";
 import { endpointURL } from "../../util/EndpointURL";
 
 import "./CurrentReservationList.scss";
-import { ar } from "date-fns/locale";
 
 function CurrentReservationList({ aReservation, fetchReservations }) {
   const [open, setOpen] = useState(false);
