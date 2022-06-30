@@ -44,7 +44,57 @@ This is a web application that allows the users to Create, Read, Update and Dele
 
 ## Challenges encountered
 - Manipulating date object inorder to make it more user friendly
+
+```js
+const change12To24 = (str) => {
+  const timeString12hr = new Date("1970-01-01T" + str + "Z").toLocaleTimeString("en-US", {
+    timeZone: "UTC",
+    hour12: true,
+    hour: "numeric",
+    minute: "numeric",
+  });
+
+  return timeString12hr;
+};
+
+const formatTime = (e) => {
+  let formattedHour = e.getHours().toString();
+  let formattedMin = e.getMinutes().toString();
+  let formattedSec = e.getSeconds().toString();
+  let formattedTime = "";
+
+  if (formattedHour.length === 1) {
+    formattedHour = `0${formattedHour}`;
+  }
+
+  if (formattedMin.length === 1) {
+    formattedMin = `0${formattedMin}`;
+  }
+
+  if (formattedSec.length === 1) {
+    formattedSec = `0${formattedSec}`;
+  }
+
+  formattedTime = `${formattedHour}:${formattedMin}:${formattedSec}`;
+
+  return formattedTime;
+};
+
+
+
+```
 - Filtering through multiple user inputs 
+
+``` js
+ useEffect(() => {
+    let fData = filterByName(allRestaurants);
+    fData = filterByLocation(fData);
+    fData = filterByCuisine(fData);
+    fData = filterByPrice(fData);
+    fData = filterByService(fData);
+    setFilteredRestaurants(fData);
+  }, [searchTerm, restaurantLocation, restaurantCuisine, restaurantPrice, restaurantService]);
+```
 
 ## Frameworks / API
 
