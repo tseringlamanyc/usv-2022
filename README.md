@@ -84,7 +84,7 @@ const formatTime = (e) => {
 
 
 ```
-- Filtering through multiple user inputs 
+- Implemented useEffect within React to help with filtering multiple values
 
 ``` js
  useEffect(() => {
