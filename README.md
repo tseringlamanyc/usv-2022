@@ -1,12 +1,16 @@
-# Getting Started with Create React App
+# Reservation Coding Assignment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Front end heroku link [here](https://takehome-usv.herokuapp.com/).
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+Users are able to:
 
-### `npm start`
+- Add Restaurants
+- Search Restaurants
+- Create and Update Reservations
+- List all Reservations
+- View Details for Individual Reservations or Restaurants
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
