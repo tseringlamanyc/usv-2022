@@ -14,10 +14,20 @@ Users are able to:
 
 Responsive
 
-- Mobile and Desktop
+- Mobile (320px - 480px)
+- Desktop
+
+Screenshots
+
+## Icebox features
+
+- [ ] Implement map using (Google maps / Mapbox)
+- [ ] Able to upload user photos for restaurants
+- [ ] Show restaurants based on zipcodes
+- [ ] Able to post reviews
 
 ## Library Used
 
 - [Material UI](https://mui.com/)
 - [SASS](https://www.npmjs.com/package/node-sass)
-- [Heroku] for deployent (https://www.heroku.com/)
+- [Heroku](https://www.heroku.com/)
