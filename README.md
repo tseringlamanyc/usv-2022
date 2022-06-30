@@ -17,15 +17,15 @@ This is a web application that allows the users to Create, Read, Update and Dele
 
 1. Clone this repo.
 2. Ensure you have `node` installed locally in Terminal, run `node -v`, if it's not installed visit [node.js](https://nodejs.org/en/) for the latest version.
-3. Navigate to the cloned project in Terminal, ensure that you're in the "navigation" directory.
+3. Navigate to the cloned project in Terminal, ensure that you're in the project directory.
 4. Run `npm install` to ensure all dependencies are installed.
-5. To run the "navigation" app run `npm start` in the Terminal.
+5. To run the app run `npm start` in the Terminal.
 6. You should now be able to see the app running in your browser at `localhost:3000`.
 
 
 ## Responsive
 
-- Mobile (320px - 480px)
+- Mobile 
 - Desktop
 
 ## Screenshots
@@ -41,9 +41,10 @@ This is a web application that allows the users to Create, Read, Update and Dele
 - [ ] Allow users to upload photos while creating a restaurant
 - [ ] Show restaurants based on zipcodes
 - [ ] Able to post reviews
+- [ ] Add responsiveness for tablets 
 
 ## Challenges encountered
-- Manipulating date object inorder to make it more user friendly
+- Manipulating date object in order to make it more user friendly
 
 ```js
 const change12To24 = (str) => {
