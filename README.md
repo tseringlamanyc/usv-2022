@@ -99,7 +99,7 @@ const formatTime = (e) => {
 
 ## Frameworks / API
 
-- HTML, CSS, Javscript
+- HTML, CSS, JavaScript
 - [Material UI](https://mui.com/)
 - [SASS](https://www.npmjs.com/package/node-sass)
 - [Heroku](https://www.heroku.com/)
