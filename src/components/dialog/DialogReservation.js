@@ -19,6 +19,8 @@ function DialogReservation({ method, setReservation, reservation, getReservation
     setOpen(false);
   };
 
+  console.log(reservation);
+
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>

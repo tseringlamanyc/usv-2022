@@ -25,7 +25,7 @@ function ReservationCard({ reservation, deleteReservation }) {
       <div className="reservationCard_btns">
         <div>
           <IconButton>
-            <ModeEditIcon />
+            <DialogReservation reservation={reservation} id={reservation.id} method="PATCH" />
           </IconButton>
         </div>
         <div>

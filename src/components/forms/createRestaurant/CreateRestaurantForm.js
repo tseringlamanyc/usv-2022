@@ -92,29 +92,48 @@ function CreateRestaurantForm({
   };
 
   const createNewRestaurant = () => {
-    let { name, description, price, cuisine, location, openingTime, closingTime } = formValues;
+    let {
+      name,
+      description,
+      price,
+      cuisine,
+      location,
+      openingTime,
+      closingTime,
+      phoneNumber,
+      diningRestriction,
+    } = formValues;
+
+    let restaurantData = {
+      name,
+      description,
+      price,
+      cuisine,
+      location,
+      openingTime,
+      closingTime,
+    };
+
+    if (formValues.phoneNumber.length) {
+      restaurantData.phoneNumber = phoneNumber;
+    }
+
+    if (formValues.diningRestriction) {
+      restaurantData.diningRestriction = diningRestriction;
+    }
 
     let jsonObject = {
       method: method,
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name,
-        description,
-        price,
-        cuisine,
-        location,
-        openingTime,
-        closingTime,
-      }),
+      body: JSON.stringify(restaurantData),
     };
 
     let postURL = `${endpointURL}restaurants`;
 
     if (method === "PATCH") {
       postURL += `/${restaurant.id}`;
-      console.log(postURL);
     }
 
     fetch(postURL, jsonObject)
@@ -155,7 +174,7 @@ function CreateRestaurantForm({
         }, 2000);
       });
 
-    console.log(formValues);
+    console.log(restaurantData);
   };
 
   return (

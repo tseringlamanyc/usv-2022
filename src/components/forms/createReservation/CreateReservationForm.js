@@ -16,18 +16,23 @@ import "./CreateReservationForm.scss";
 
 let guests = [...Array(10).keys()];
 
-function CreateReservationForm({ getReservation, setReservation, id, method = "POST" }) {
+function CreateReservationForm({
+  reservation,
+  getReservation,
+  setReservation,
+  id,
+  method = "POST",
+}) {
   const reservationObj = {
     firstName: "",
     lastName: "",
     phoneNumber: "",
     time: null,
     numGuests: "",
-    restaurantId: id,
     email: "",
   };
 
-  const [formValues, setFormValues] = useState(reservationObj);
+  const [formValues, setFormValues] = useState(reservation || reservationObj);
   const [dateTime, setDateTime] = useState(reservationObj.time || null);
   const [notify, setNotify] = useState("");
   const [open, setOpen] = useState(false);
@@ -66,24 +71,38 @@ function CreateReservationForm({ getReservation, setReservation, id, method = "P
   };
 
   const createNewReservation = () => {
-    let { firstName, lastName, phoneNumber, time, numGuests, restaurantId } = formValues;
+    let { firstName, lastName, phoneNumber, time, numGuests } = formValues;
+
+    let reservationData = {
+      firstName,
+      lastName,
+      phoneNumber,
+      time,
+      numGuests,
+    };
+
+    if (method === "POST") {
+      reservationData.restaurantId = id;
+    }
+
+    if (!formValues.email) {
+      reservationData.email = formValues.email;
+    }
 
     let jsonObject = {
-      method: "POST",
+      method: method,
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        firstName,
-        lastName,
-        phoneNumber,
-        time,
-        numGuests,
-        restaurantId,
-      }),
+      body: JSON.stringify(reservationData),
     };
 
     let postURL = `${endpointURL}reservations`;
+
+    if (method === "PATCH") {
+      postURL += `/${reservation.id}`;
+      console.log(postURL);
+    }
 
     fetch(postURL, jsonObject)
       .then((response) => response.json())
@@ -100,6 +119,10 @@ function CreateReservationForm({ getReservation, setReservation, id, method = "P
             handleClose();
           }, 2000);
         } else {
+          setNotify("Reservation updated");
+          handleToggle();
+
+          console.log(data);
         }
       })
       .catch((err) => {
