@@ -78,9 +78,7 @@ function ReservationGrid({ allRestaurants }) {
 
       const json = await res.json();
       setReservations(json.reservations);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {

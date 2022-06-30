@@ -20,9 +20,7 @@ function AllReservations() {
 
       const json = await res.json();
       setAllRestaurants(json);
-      console.log(json);
     } catch (err) {
-      console.log(err);
       setError(err.message);
     }
   };

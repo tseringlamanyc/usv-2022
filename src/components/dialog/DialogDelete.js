@@ -22,9 +22,7 @@ function DialogDelete({ deleteHandler, reservationId }) {
     try {
       deleteHandler(reservationId);
       setOpen(false);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (
