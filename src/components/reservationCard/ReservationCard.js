@@ -7,7 +7,7 @@ import DialogReservation from "../dialog/DialogReservation";
 
 import "./ReservationCard.scss";
 
-function ReservationCard({ reservation, deleteReservation, fetchReservations }) {
+function ReservationCard({ reservation, deleteReservation, fetchReservations, restaurant }) {
   return (
     <div className="reservationCard">
       <div className="reservationCard_avatar">
@@ -28,6 +28,7 @@ function ReservationCard({ reservation, deleteReservation, fetchReservations }) 
         <div>
           <DialogReservation
             reservation={reservation}
+            restaurant={restaurant}
             id={reservation.id}
             method="PATCH"
             fetchReservations={fetchReservations}

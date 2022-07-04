@@ -6,8 +6,15 @@ import "./RestaurantList.scss";
 function RestaurantList({ restaurants }) {
   return (
     <div className="restaurantsList">
-      {restaurants.map((restaurant) => {
-        return <RestaurantCard restaurant={restaurant} key={restaurant.id} />;
+      {restaurants.map((restaurant, index) => {
+        return (
+          <div
+            style={{
+              backgroundColor: index % 2 === 1 ? "#F0f7f7" : "white",
+            }}>
+            <RestaurantCard restaurant={restaurant} key={restaurant.id} />
+          </div>
+        );
       })}
     </div>
   );

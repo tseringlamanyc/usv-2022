@@ -6,10 +6,9 @@ import { endpointURL } from "../../util/EndpointURL";
 
 import "./CurrentReservationList.scss";
 
-function CurrentReservationList({ aReservation, fetchReservations }) {
+function CurrentReservationList({ aReservation, fetchReservations, restaurant }) {
   const [open, setOpen] = useState(false);
   const [notify, setNotify] = useState("");
-  const [reservations, setReservations] = useState([]);
 
   const alertClose = () => {
     setOpen(false);
@@ -40,6 +39,14 @@ function CurrentReservationList({ aReservation, fetchReservations }) {
         }, 2000);
 
         fetchReservations();
+      })
+      .catch((err) => {
+        setNotify("Couldnt delete");
+        alertToggle();
+
+        setTimeout(() => {
+          alertClose();
+        }, 2000);
       });
   };
 
@@ -53,6 +60,7 @@ function CurrentReservationList({ aReservation, fetchReservations }) {
         return (
           <ReservationCard
             reservation={reservation}
+            restaurant={restaurant}
             deleteReservation={deleteReservation}
             key={index}
             fetchReservations={fetchReservations}

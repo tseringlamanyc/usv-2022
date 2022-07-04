@@ -128,11 +128,12 @@ function SingleRestaurant() {
         />
       </div>
 
-      <div className="singleRestaurant_resName">Current Reservations</div>
+      <div className="singleRestaurant_resName">{`Current Reservations : ${reservationData.length}`}</div>
 
       {reservationData.length === 0 && <EmptyList searchTerm="No reservations yet" />}
       <CurrentReservationList
         aReservation={reservationData}
+        restaurant={restaurantData}
         fetchReservations={fetchReservations}
       />
     </div>

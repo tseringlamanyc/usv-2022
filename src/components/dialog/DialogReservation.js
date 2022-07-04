@@ -10,7 +10,7 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
 import CreateReservationForm from "../forms/createReservation/CreateReservationForm";
 
-function DialogReservation({ method, reservation, id, fetchReservations }) {
+function DialogReservation({ method, reservation, id, fetchReservations, restaurant }) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -37,6 +37,7 @@ function DialogReservation({ method, reservation, id, fetchReservations }) {
             id={id}
             closeDialog={handleClose}
             fetchReservations={fetchReservations}
+            restaurant={restaurant}
           />
         </DialogContent>
 

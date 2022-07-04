@@ -94,6 +94,7 @@ function RestaurantInfo({ restaurant, restaurantId, fetchReservations }) {
           id={restaurantId}
           method="POST"
           fetchReservations={fetchReservations}
+          restaurant={restaurant}
         />
       </div>
     </div>

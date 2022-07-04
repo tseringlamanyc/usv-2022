@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 
 import { TextField, Button } from "@mui/material";
@@ -23,6 +23,7 @@ function CreateReservationForm({
   method = "POST",
   closeDialog,
   fetchReservations,
+  restaurant,
 }) {
   //
   const reservationObj = {
@@ -38,6 +39,13 @@ function CreateReservationForm({
   const [dateTime, setDateTime] = useState(reservationObj.time || null);
   const [notify, setNotify] = useState("");
   const [open, setOpen] = useState(false);
+
+  const [minTime, setMinTime] = useState(
+    restaurant.openingTime.split(":").map(Number).slice(0, 2) || null
+  );
+  const [maxTime, setMaxTime] = useState(
+    restaurant.closingTime.split(":").map(Number).slice(0, 2) || null
+  );
 
   const handleClose = () => {
     setOpen(false);
@@ -136,7 +144,7 @@ function CreateReservationForm({
         }
       })
       .catch((err) => {
-        setNotify(err);
+        setNotify("Fill out required fields, including time and guest");
         handleToggle();
 
         setTimeout(() => {
@@ -197,7 +205,10 @@ function CreateReservationForm({
 
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DateTimePicker
-            required
+            required={isMandatory}
+            minDate={new Date()}
+            minTime={new Date(0, 0, 0, minTime[0], minTime[1])}
+            maxTime={new Date(0, 0, 0, maxTime[0], maxTime[1])}
             id="outline-required"
             label="Time"
             value={dateTime}

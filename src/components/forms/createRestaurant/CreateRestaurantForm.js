@@ -42,6 +42,10 @@ function CreateRestaurantForm({
 
   const [open, setOpen] = useState(false);
 
+  function refreshPage() {
+    window.location.reload(false);
+  }
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -167,6 +171,7 @@ function CreateRestaurantForm({
         } else {
           setNotify(`Successfully updated`);
           handleToggle();
+          refreshPage();
 
           setTimeout(() => {
             handleClose();
@@ -179,9 +184,11 @@ function CreateRestaurantForm({
       })
       .catch((err) => {
         setNotify(`${err}`);
+        handleToggle();
 
         setTimeout(() => {
           handleClose();
+          closeDialog();
         }, 2000);
       });
   };
