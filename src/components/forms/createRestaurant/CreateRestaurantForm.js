@@ -181,15 +181,6 @@ function CreateRestaurantForm({
           setRestaurant(data);
           getARestaurant();
         }
-      })
-      .catch((err) => {
-        setNotify(`${err}`);
-        handleToggle();
-
-        setTimeout(() => {
-          handleClose();
-          closeDialog();
-        }, 2000);
       });
   };
 

@@ -25,7 +25,7 @@ function RestaurantCard({ restaurant }) {
           </div>
         </div>
 
-        <Button variant="contained" endIcon={<TableRestaurantIcon />} className="btn">
+        <Button variant="outlined" endIcon={<TableRestaurantIcon />} className="btn">
           Find Table
         </Button>
       </Link>

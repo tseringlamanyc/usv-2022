@@ -9,7 +9,9 @@ function Navbar() {
   return (
     <div className="navbar">
       <div className="navbar_logo">
-        <img src="./my-avatar.png" />
+        <a href="/">
+          <img src="./my-avatar.png" />
+        </a>
       </div>
 
       <div className={isExpanded ? "navbar_items navbar_items-expanded" : "navbar_items"}>
