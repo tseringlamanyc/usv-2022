@@ -131,7 +131,7 @@ function AllRestaurants() {
       {isLoading && <LoadingView />}
 
       {!isLoading && filteredRestaurants.length === 0 && (
-        <EmptyList searchTerm="No restaurant found" />
+        <EmptyList searchTerm={`${searchTerm} was not found`} />
       )}
 
       {filteredRestaurants.length > 0 && <RestaurantList restaurants={filteredRestaurants} />}

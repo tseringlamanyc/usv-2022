@@ -130,7 +130,7 @@ function SingleRestaurant() {
 
       <div className="singleRestaurant_resName">{`Current Reservations : ${reservationData.length}`}</div>
 
-      {reservationData.length === 0 && <EmptyList searchTerm="No reservations yet" />}
+      {reservationData.length === 0 && <EmptyList searchTerm="No reservations - Book now!" />}
       <CurrentReservationList
         aReservation={reservationData}
         restaurant={restaurantData}
