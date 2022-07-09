@@ -10,7 +10,7 @@ function RestaurantList({ restaurants }) {
         return (
           <div
             style={{
-              backgroundColor: index < 3 ? "#F0f7f7" : "white",
+              backgroundColor: index < 2 ? "#F0f7f7" : "white",
             }}>
             <RestaurantCard restaurant={restaurant} key={restaurant.id} />
           </div>
