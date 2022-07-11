@@ -12,6 +12,7 @@ import "./AllRestaurants.scss";
 
 function AllRestaurants() {
   const [allRestaurants, setAllRestaurants] = useState([]);
+  const [topResturants, setTopRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [restaurantLocation, setRestaurantLocation] = useState("");
   const [restaurantCuisine, setRestaurantCuisine] = useState("");
@@ -92,10 +93,25 @@ function AllRestaurants() {
         throw Error(`Could not fetch data for that ${url}`);
       }
 
+      // all restaurants json
       const json = await res.json();
-      let sorted = json.restaurants.sort((a, b) => a.name.localeCompare(b.name));
-      setAllRestaurants(sorted);
-      setFilteredRestaurants(sorted);
+
+      // sort by popularlity - reservations (high to low)
+      const popularlity = json.restaurants
+        .sort(function (a, b) {
+          // reservations
+          return b.reservations.length - a.reservations.length;
+        })
+        .slice(0, 3);
+
+      const allRestaurants = json.restaurants.sort(function (a, b) {
+        return a.name.localeCompare(b.name);
+      });
+
+      setTopRestaurants(popularlity);
+      setAllRestaurants(allRestaurants);
+      setFilteredRestaurants(allRestaurants);
+
       setIsLoading(false);
     } catch (err) {
       setError(err.message);
@@ -134,6 +150,10 @@ function AllRestaurants() {
         <EmptyList searchTerm={`${searchTerm} was not found`} />
       )}
 
+      <h2>Popular this week</h2>
+      {<RestaurantList restaurants={topResturants} />}
+
+      <h2>Browse</h2>
       {filteredRestaurants.length > 0 && <RestaurantList restaurants={filteredRestaurants} />}
     </div>
   );
