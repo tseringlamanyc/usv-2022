@@ -4,10 +4,17 @@ import { change12To24 } from "../../util/24to12";
 
 import DialogDelete from "../dialog/DialogDelete";
 import DialogReservation from "../dialog/DialogReservation";
+import { decideMarker } from "../../util/decideTime";
 
 import "./ReservationCard.scss";
 
 function ReservationCard({ reservation, deleteReservation, fetchReservations, restaurant }) {
+  // reservation time
+
+  // checking what it is
+  let typeOfReservation = decideMarker(reservation);
+  console.log(typeOfReservation);
+
   return (
     <div className="reservationCard">
       <div className="reservationCard_avatar">
@@ -15,7 +22,7 @@ function ReservationCard({ reservation, deleteReservation, fetchReservations, re
       </div>
 
       <div className="reservationCard_info">
-        <div className="reservationCard_info_fullName">{`${reservation.firstName} ${reservation.lastName}`}</div>
+        <div className="reservationCard_info_fullName">{`${reservation.firstName} ${reservation.lastName} : ${typeOfReservation}`}</div>
 
         <div className="reservationCard_info_dateTime">{`${
           reservation.time.split("T")[0]
